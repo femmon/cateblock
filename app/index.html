@@ -28,7 +28,7 @@
     function deleteAccount() {
         fetch("/delete-account", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
     }
-    function deleteAccount() {
+    function inOrOut() {
         fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
     }
     let counter = 0;
