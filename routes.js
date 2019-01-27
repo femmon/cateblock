@@ -124,16 +124,16 @@ router.post("/signout", (req, res) => {
 });
 
 router.post("/in-or-out", (req, res) => {
-    if (!req.session.username) {
-        res.send("out");
+    if (req.session.username) {
+        res.send("In");
     } else {
-        res.send("in");
+        res.send("Out");
     }
+});
 
-    // if (req.session.username) {
-    //     res.send("In");
-    // }
-    // res.send("Out");
+router.post("/assumption-test", (req, res) => {
+        res.send("In");
+        res.send("Out");
 });
 
 module.exports = router;
