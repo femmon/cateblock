@@ -1,0 +1,57 @@
+<form>
+    Username: <input><br>
+    Password: <input><br>
+    <button type="button" onclick="signup()">Sign up</button>
+    <button type="button" onclick="deleteAccount()">Delete account</button>
+    <button type="button" onclick="login()">Log in</button>
+    <button type="button" onclick="signout()">Sign out</button>
+    <button type="button" onclick="inOrOut()">In Or Out</button>
+</form>
+
+<script>
+    let input = document.querySelectorAll("input")
+    function login() {
+        fetch("/login", {method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({username: input[0].value, password: input[1].value})}
+             ).then(res => res.text()).then(body => console.log(body))
+    }
+    function signup() {
+        fetch("/signup", {method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({username: input[0].value, password: input[1].value})}
+             ).then(res => res.text()).then(body => console.log(body))
+    }
+    function signout() {
+        fetch("/signout", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
+    }
+    function deleteAccount() {
+        fetch("/delete-account", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
+    }
+    function deleteAccount() {
+        fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
+    }
+    let counter = 0;
+    let timer;
+    input[0].addEventListener("input", (event)=>{
+        console.log("syntax check");
+        window.clearTimeout(timer);
+        if (isUsernameValid(input[0].value)) {
+            timer = window.setTimeout(isAvailable, 1000, input[0].value)
+        }
+    });
+    function isUsernameValid(username) {
+        username = username.trim();
+        if (username.length > 20) {
+            return false;
+        }
+        let rule = /^[\w-_]{3,}$/;
+        return rule.test(username);
+    }
+    function isAvailable(username) {
+        fetch("/is-available", {method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({username: username})}
+             ).then(res => res.text()).then(body => console.log(body))
+    }
+</script>
