@@ -121,13 +121,13 @@ router.post("/signout", (req, res) => {
     } else {
         res.send("log outed");
     }
-})
+});
 
-router.post("/in-or-out"), (req, res) => {
+router.post("/in-or-out", (req, res) => {
     if (req.session.username) {
         res.send("In");
     }
     res.send("Out");
-}
+});
 
 module.exports = router;
