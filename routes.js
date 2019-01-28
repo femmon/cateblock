@@ -29,17 +29,15 @@ router.post("/is-available", async (req, res) => {
     }
 });
 
-router.post("/signup", (req, res) => {
-    let username = req.body.username;
-    if (isUsernameValid(username)) {
-        pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username], (err, results) => {
-            if (err) {
-                throw err;
-            }
+router.post("/signup", async (req, res) => {
+    try {
+        let username = req.body.username;
+        if (isUsernameValid(username)) {
+            let results = pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username])
             if (!results[0]["COUNT(*)"]) {
                 let password = req.body.password;
                 if (password.length < 6) {
-                    res.send("Password is too short")
+                    res.send("Password is too short");
                 } else {
                     let salt = crypto.randomBytes(128).toString('base64');
                     let iterations = 100000;
@@ -48,21 +46,19 @@ router.post("/signup", (req, res) => {
                             throw err;
                         }
                         hash = hash.toString("base64")
-                        pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash], (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                            req.session.username = username;
-                            res.send("Success");
+                        await pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash])
+                        req.session.username = username;
+                        res.send("Success");
                         });
-                    });
-                }
+                    }
             } else {
                 res.send("Username unavailable")
             }
-        })
-    } else {
-        res.send("Invalid username")
+        } else {
+            res.send("Invalid username")
+        }
+    } catch (err) {
+        throw(err);
     }
 });
 

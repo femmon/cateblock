@@ -26,7 +26,7 @@ app.use(session({
 }));
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 app.use(router);
 app.use(express.static(path.join(__dirname, "app")))
 app.get("*", (req, res) => {
