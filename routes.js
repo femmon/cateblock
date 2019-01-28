@@ -131,9 +131,4 @@ router.post("/in-or-out", (req, res) => {
     }
 });
 
-router.post("/assumption-test", (req, res) => {
-        res.send("In");
-        res.send("Out");
-});
-
 module.exports = router;
