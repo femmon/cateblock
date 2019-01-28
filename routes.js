@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
         if (isUsernameValid(username) && password.length > 5) {
-            let results = pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username])
+            let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
             if (!results[0]["COUNT(*)"]) {
                 let salt = crypto.randomBytes(128).toString('base64');
                 let iterations = 100000;
