@@ -11,19 +11,15 @@ function isUsernameValid(username) {
     return rule.test(username);
 }
 
-router.post("/is-available", (req, res) => {
+router.post("/is-available", async (req, res) => {
     let username = req.body.username;
     if (isUsernameValid(username)) {
-        pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username], (err, results) => {
-            if (err) {
-                throw err;
-            }
-            if (!results[0]["COUNT(*)"]) {
-                res.send("Available");
-            } else {
-                res.send("Unavailable");
-            }
-        })
+        let results = pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
+        if (!results[0]["COUNT(*)"]) {
+            res.send("Available");
+        } else {
+            res.send("Unavailable");
+        }
     } else {
         res.send("Invalid username");
     }

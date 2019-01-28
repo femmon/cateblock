@@ -13,13 +13,25 @@ const pool  = mysql.createPool({
 });
 
 module.exports = {
-    query: (sqlString, values, callback) => {
-        return pool.query(sqlString, values, callback);
-    },
-    getConnection: (callback) => {
-        pool.getConnection((err, connection) => {
-            callback(err, connection);
+    query: (sqlString, values, connection = pool) => {
+        return new Promise((resolve, reject) => {
+            connection.query(sqlString, values, (err, results) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(results);
+            });
         })
-    }
+    },
+    getConnection: () => {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(connection);
+            });
+        });
+    },
     // postgres project structure have example of automatically kill connection after some time
 }
