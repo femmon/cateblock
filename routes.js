@@ -103,9 +103,8 @@ router.post("/signout", async (req, res) => {
     try {
         if (req.session.username) {
             req.session.destroy();
-        } else {
-            res.status(200).end();
         }
+        res.status(200).end();
     } catch (err) {
         throw err;
     }
