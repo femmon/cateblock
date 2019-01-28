@@ -24,8 +24,8 @@ router.post("/is-available", async (req, res) => {
         } else {
             res.send("Invalid username");
         }
-    } catch (error) {
-        throw(error);
+    } catch (err) {
+        throw(err);
     }
 });
 
@@ -41,12 +41,12 @@ router.post("/signup", async (req, res) => {
                 } else {
                     let salt = crypto.randomBytes(128).toString('base64');
                     let iterations = 100000;
-                    crypto.pbkdf2(password, salt, iterations, 512, 'sha512', (err, hash) => {
+                    crypto.pbkdf2(password, salt, iterations, 512, 'sha512', async (err, hash) => {
                         if (err) {
                             throw err;
                         }
-                        hash = hash.toString("base64")
-                        await pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash])
+                        hash = hash.toString("base64");
+                        await pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash]);
                         req.session.username = username;
                         res.send("Success");
                         });
