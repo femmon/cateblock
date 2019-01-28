@@ -17,12 +17,12 @@ router.post("/is-available", async (req, res) => {
         if (isUsernameValid(username)) {
             let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
             if (!results[0]["COUNT(*)"]) {
-                res.send("Available");
+                res.status(200).send("This username is available");
             } else {
-                res.send("Unavailable");
+                res.status(200).send("This username is unavailable");
             }
         } else {
-            res.send("Invalid username");
+            res.status(200).send("This username is invalid");
         }
     } catch (err) {
         throw(err);
@@ -32,90 +32,82 @@ router.post("/is-available", async (req, res) => {
 router.post("/signup", async (req, res) => {
     try {
         let username = req.body.username;
-        if (isUsernameValid(username)) {
+        let password = req.body.password;
+        if (isUsernameValid(username) && password.length > 5) {
             let results = pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username])
             if (!results[0]["COUNT(*)"]) {
-                let password = req.body.password;
-                if (password.length < 6) {
-                    res.send("Password is too short");
-                } else {
-                    let salt = crypto.randomBytes(128).toString('base64');
-                    let iterations = 100000;
-                    crypto.pbkdf2(password, salt, iterations, 512, 'sha512', async (err, hash) => {
-                        if (err) {
-                            throw err;
-                        }
-                        hash = hash.toString("base64");
-                        await pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash]);
-                        req.session.username = username;
-                        res.send("Success");
-                        });
+                let salt = crypto.randomBytes(128).toString('base64');
+                let iterations = 100000;
+                crypto.pbkdf2(password, salt, iterations, 512, 'sha512', async (err, hash) => {
+                    if (err) {
+                        throw err;
                     }
+                    hash = hash.toString("base64");
+                    await pool.query("INSERT INTO Accounts VALUES (?, ?, ?, ?);", [username, salt, iterations, hash]);
+                    req.session.username = username;
+                    res.status(200).end();
+                });
             } else {
-                res.send("Username unavailable")
+                res.status(400).send("This username is unavailable");
             }
         } else {
-            res.send("Invalid username")
+            res.status(400).send("Username and/or password is invalid");
         }
     } catch (err) {
         throw(err);
     }
 });
 
-router.post("/delete-account", (req, res) => {
-    if (req.session.username) {
-        pool.query("DELETE FROM Accounts WHERE Username = ?;", [req.session.username], (err) => {
-            if (err) {
-                throw err;
-            }
-            req.session.destroy(() => {res.send("Account is gone");});
-        });
-    } else {
-        res.send("Account is gone");
-    }
-});
-
-router.post("/login", (req, res) => {
-    let username = req.body.username;
-    if (isUsernameValid(username)) {
-        if (username != req.session.username) {
-            let password = req.body.password;
-            if (password.length < 6) {
-                res.send("Password is too short")
-            } else {
-                pool.query("SELECT Salt, Iterations, Hash FROM Accounts WHERE Username = ?;", [username], (err, results) => {
-                    if (err) {
-                        throw err;
-                    }
-                    crypto.pbkdf2(password, results[0].Salt, results[0].Iterations, 512, 'sha512', (err, hash) => {
-                        if (err) {
-                            throw err;
-                        }
-                        hash = hash.toString("base64");
-                        if (hash == results[0].Hash) {
-                            req.session.username = username;
-                            res.send("Success");
-                        } else {
-                            res.send("Wrong password");
-                        }
-                    });
-                })
-            }
-        } else {
-            res.send("Success")
+router.post("/delete-account", async (req, res) => {
+    try {
+        if (req.session.username) {
+            await pool.query("DELETE FROM Accounts WHERE Username = ?;", [req.session.username]);
+            req.session.destroy();
         }
-    } else {
-        res.send("Invalid username")
+        res.status(200).end();
+    } catch (err) {
+        throw err;
     }
 });
 
-router.post("/signout", (req, res) => {
-    if (req.session.username) {
-        req.session.destroy(() => {
-            res.send("log outed");
-        });
-    } else {
-        res.send("log outed");
+router.post("/login", async (req, res) => {
+    try {
+        let username = req.body.username;
+        let password = req.body.password;
+        if (isUsernameValid(username) && password.length > 5) {
+            let results = await pool.query("SELECT Salt, Iterations, Hash FROM Accounts WHERE Username = ?;", [username]);
+            if (!results[0]) {
+                return res.status(400).send("Username is invalid");
+            }
+            crypto.pbkdf2(password, results[0].Salt, results[0].Iterations, 512, 'sha512', (err, hash) => {
+                if (err) {
+                    throw err;
+                }
+                hash = hash.toString("base64");
+                if (hash == results[0].Hash) {
+                    req.session.username = username;
+                    res.status(200).end();
+                } else {
+                    res.status(400).send("Password is wrong");
+                }
+            });
+        } else {
+            res.status(400).send("Username and/or password is invalid");
+        }
+    } catch (err) {
+        throw err;
+    }
+});
+
+router.post("/signout", async (req, res) => {
+    try {
+        if (req.session.username) {
+            req.session.destroy();
+        } else {
+            res.status(200).end();
+        }
+    } catch (err) {
+        throw err;
     }
 });
 
