@@ -12,16 +12,20 @@ function isUsernameValid(username) {
 }
 
 router.post("/is-available", async (req, res) => {
-    let username = req.body.username;
-    if (isUsernameValid(username)) {
-        let results = pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
-        if (!results[0]["COUNT(*)"]) {
-            res.send("Available");
+    try {
+        let username = req.body.username;
+        if (isUsernameValid(username)) {
+            let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
+            if (!results[0]["COUNT(*)"]) {
+                res.send("Available");
+            } else {
+                res.send("Unavailable");
+            }
         } else {
-            res.send("Unavailable");
+            res.send("Invalid username");
         }
-    } else {
-        res.send("Invalid username");
+    } catch (error) {
+        throw(error);
     }
 });
 
