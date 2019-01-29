@@ -7,6 +7,11 @@
     <button type="button" onclick="signout()">Sign out</button>
     <button type="button" onclick="inOrOut()">In Or Out</button>
 </form>
+<form>
+    Content: <input><br>
+    <button type="button" onclick="submit()">Submit</button>
+    <button type="button" onclick="view()">View</button>
+</form>
 
 <script>
     let input = document.querySelectorAll("input")
@@ -53,5 +58,13 @@
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({username: username})}
              ).then(res => res.text()).then(body => console.log(body))
+    }
+    function submit() {
+        fetch("/create-entry", {method: "POST"},
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({content: input[2].value})).then(res => res.text()).then(body => console.log(body))
+    }
+    function view() {
+        fetch("/view-entries", {method: "POST"}).then(res => res.json()).then(body => console.log(body))
     }
 </script>

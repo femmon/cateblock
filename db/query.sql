@@ -7,14 +7,24 @@ DELETE FROM Accounts WHERE Username = Username;
 -- DELETE FROM Accounts WHERE Username = "djk";
 
 -- Create new entry
-INSERT INTO Entries VALUES (0, Username, Content, PostTime);
+
+
+-- Remove PostTime as it will automatically create and update
+
+
+INSERT INTO Entries VALUES (0, Username, Content, DEFAULT);
 -- INSERT INTO Entries VALUES (0,"djk", "djfkl", "2019-01-18 00:00:00");
 
 -- Edit entry
 SELECT COUNT(*) FROM Entries WHERE Username = Username and EntryID = EntryID;
 UPDATE History SET Generations = Generations + 1 WHERE EntryID = EntryID;
 INSERT INTO History (EntryID, Content, PostTime, Generations) SELECT EntryID, Content, PostTime, 1 FROM Entries WHERE EntryID = EntryID;
-UPDATE Entries SET Content = Content, PostTime = PostTime WHERE EntryID = EntryID;
+
+
+-- Remove PostTime as it will automatically create and update
+
+
+UPDATE Entries SET Content = Content WHERE EntryID = EntryID;
 -- SELECT COUNT(*) FROM Entries WHERE Username = "djk" and EntryID = 2;
 -- UPDATE History SET Generations = Generations + 1 WHERE EntryID = 2;
 -- INSERT INTO History (EntryID, Content, PostTime, Generations) SELECT EntryID, Content, PostTime, 1 FROM Entries WHERE EntryID = 2;
