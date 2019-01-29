@@ -9,7 +9,7 @@
 </form>
 <form>
     Content: <input><br>
-    <button type="button" onclick="submit()">Submit</button>
+    <button type="button" onclick="create()">Submit</button>
     <button type="button" onclick="view()">View</button>
 </form>
 
@@ -59,7 +59,7 @@
                         body: JSON.stringify({username: username})}
              ).then(res => res.text()).then(body => console.log(body))
     }
-    function submit() {
+    function create() {
         fetch("/create-entry", {method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({content: input[2].value})}).then(res => res.text()).then(body => console.log(body))
