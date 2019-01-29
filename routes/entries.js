@@ -29,3 +29,5 @@ router.post("/view-entries", async (req, res) => {
         throw err;
     }
 });
+
+module.exports = router;
