@@ -12,7 +12,7 @@
     ID: <input><br>
     <button type="button" onclick="create()">Submit</button>
     <button type="button" onclick="view()">View</button>
-    <button type="button" onclick="delete()">Delete</button>
+    <button type="button" onclick="deleteEntry()">Delete</button>
     <button type="button" onclick="edit()">Edit</button>
     <button type="button" onclick="viewEdit()">View Edit</button>
 </form>
@@ -71,7 +71,7 @@
     function view() {
         fetch("/view-entries", {method: "POST"}).then(res => res.json()).then(body => console.log(body))
     }
-    function delete() {
+    function deleteEntry() {
         fetch("/delete-entry", {method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({entryID: input[3].value})}).then(res => res.text()).then(body => console.log(body))
