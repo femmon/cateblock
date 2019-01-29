@@ -60,9 +60,9 @@
              ).then(res => res.text()).then(body => console.log(body))
     }
     function submit() {
-        fetch("/create-entry", {method: "POST"},
+        fetch("/create-entry", {method: "POST",
                         headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({content: input[2].value})).then(res => res.text()).then(body => console.log(body))
+                        body: JSON.stringify({content: input[2].value})}).then(res => res.text()).then(body => console.log(body))
     }
     function view() {
         fetch("/view-entries", {method: "POST"}).then(res => res.json()).then(body => console.log(body))
