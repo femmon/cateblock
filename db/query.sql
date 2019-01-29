@@ -35,7 +35,7 @@ DELETE FROM Entries WHERE Username = Username AND EntryID = EntryID;
 -- DELETE FROM Entries WHERE Username = "djk" AND EntryID = 2;
 
 -- View entry
-SELECT Content, PostTime FROM Entries WHERE Username = Username ORDER BY EntryID DESC LIMIT 5 OFFSET 5;
+SELECT EntryID, Content, PostTime FROM Entries WHERE Username = Username ORDER BY EntryID DESC LIMIT 5 OFFSET 5;
 -- SELECT Content, PostTime FROM Entries WHERE Username = "djk" ORDER BY EntryID DESC LIMIT 5 OFFSET 0;
 
 -- View edit
