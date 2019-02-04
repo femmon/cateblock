@@ -86,4 +86,7 @@
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({entryID: input[3].value})}).then(res => res.json()).then(body => console.log(body))
     }
+
+    // Check if .json or .text: https://stackoverflow.com/questions/37121301/how-to-check-if-the-response-of-a-fetch-is-a-json-object-in-javascript
+    // https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try?noredirect=1&lq=1
 </script>
