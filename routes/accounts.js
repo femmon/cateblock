@@ -37,9 +37,9 @@ router.post("/signup", async (req, res) => {
             let connection = await pool.getConnection();
             let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username], connection);
             if (!results[0]["COUNT(*)"]) {
-                let salt = crypto.randomBytes(128).toString('base64');
+                let salt = crypto.randomBytes(128).toString("base64");
                 let iterations = 100000;
-                crypto.pbkdf2(password, salt, iterations, 512, 'sha512', async (err, hash) => {
+                crypto.pbkdf2(password, salt, iterations, 512, "sha512", async (err, hash) => {
                     if (err) {
                         throw err;
                     }
@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
             if (!results[0]) {
                 return res.status(400).send("Username is nonexistent");
             }
-            crypto.pbkdf2(password, results[0].Salt, results[0].Iterations, 512, 'sha512', (err, hash) => {
+            crypto.pbkdf2(password, results[0].Salt, results[0].Iterations, 512, "sha512", (err, hash) => {
                 if (err) {
                     throw err;
                 }

@@ -1,92 +1,13 @@
-<form>
-    Username: <input><br>
-    Password: <input><br>
-    <button type="button" onclick="signup()">Sign up</button>
-    <button type="button" onclick="deleteAccount()">Delete account</button>
-    <button type="button" onclick="login()">Log in</button>
-    <button type="button" onclick="signout()">Sign out</button>
-    <button type="button" onclick="inOrOut()">In Or Out</button>
-</form>
-<form>
-    Content: <input><br>
-    ID: <input><br>
-    <button type="button" onclick="create()">Submit</button>
-    <button type="button" onclick="view()">View</button>
-    <button type="button" onclick="deleteEntry()">Delete</button>
-    <button type="button" onclick="edit()">Edit</button>
-    <button type="button" onclick="viewEdit()">View Edit</button>
-</form>
-
-<script>
-    let input = document.querySelectorAll("input")
-    function login() {
-        fetch("/login", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({username: input[0].value, password: input[1].value})}
-             ).then(res => res.text()).then(body => console.log(body))
-    }
-    function signup() {
-        fetch("/signup", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({username: input[0].value, password: input[1].value})}
-             ).then(res => res.text()).then(body => console.log(body))
-    }
-    function signout() {
-        fetch("/signout", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
-    }
-    function deleteAccount() {
-        fetch("/delete-account", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
-    }
-    function inOrOut() {
-        fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(body => console.log(body))
-    }
-    let counter = 0;
-    let timer;
-    input[0].addEventListener("input", (event)=>{
-        console.log("syntax check");
-        window.clearTimeout(timer);
-        if (isUsernameValid(input[0].value)) {
-            timer = window.setTimeout(isAvailable, 1000, input[0].value)
-        }
-    });
-    function isUsernameValid(username) {
-        username = username.trim();
-        if (username.length > 20) {
-            return false;
-        }
-        let rule = /^[\w-_]{3,}$/;
-        return rule.test(username);
-    }
-    function isAvailable(username) {
-        fetch("/is-available", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({username: username})}
-             ).then(res => res.text()).then(body => console.log(body))
-    }
-    function create() {
-        fetch("/create-entry", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({content: input[2].value})}).then(res => res.text()).then(body => console.log(body))
-    }
-    function view() {
-        fetch("/view-entries", {method: "POST"}).then(res => res.json()).then(body => console.log(body))
-    }
-    function deleteEntry() {
-        fetch("/delete-entry", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({entryID: input[3].value})}).then(res => res.text()).then(body => console.log(body))
-    }
-    function edit() {
-        fetch("/edit-entry", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({content: input[2].value, entryID: input[3].value})}).then(res => res.text()).then(body => console.log(body))
-    }
-    function viewEdit() {
-        fetch("/view-edit", {method: "POST",
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({entryID: input[3].value})}).then(res => res.json()).then(body => console.log(body))
-    }
-
-    // Check if .json or .text: https://stackoverflow.com/questions/37121301/how-to-check-if-the-response-of-a-fetch-is-a-json-object-in-javascript
-    // https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try?noredirect=1&lq=1
-</script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Cateblock</title>
+    </head>
+    <body>
+        <noscript>This page need Javascript to work.</noscript>
+        <div id="root"></div>
+        <script src="script.js" charset="utf-8"></script>
+    </body>
+</html>
