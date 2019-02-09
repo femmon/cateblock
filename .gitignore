@@ -3,6 +3,14 @@ node_modules
 npm-debug.log
 
 # Local development
+
+
+# Move favicon.ico to src and include build step to take image with you
+
+client/dist/*
+!/client/dist/favicon.ico
+
+
 *.env
 *.dev
 .DS_Store
