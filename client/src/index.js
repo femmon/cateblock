@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import Button from './components/button';
+import Form from './components/form';
 
-ReactDOM.render(<Button content = "Dis buton" />, document.getElementById('root'));
+ReactDOM.render(<Form />, document.getElementById('root'));
