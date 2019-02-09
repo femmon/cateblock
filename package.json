@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "heroku-postbuild": "webpack --mode production"
+    "build": "cd client && webpack --mode production",
+    "heroku-postbuild": "cd client && webpack --mode production"
   },
   "author": "",
   "license": "ISC",
