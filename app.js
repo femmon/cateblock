@@ -23,7 +23,10 @@ app.use(session({
         password : layout[2],
         port     : layout[4],
     }),
-    cookie: { maxAge: 60 * 60 * 1000 }
+    cookie: {
+        maxAge: 60 * 60 * 1000 ,
+        secure: true
+    }
 }));
 
 app.use(express.json());

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "cd client && webpack --mode production",
-    "heroku-postbuild": "cd client && webpack --mode production"
+    "start": "node app && npm run build"
   },
   "author": "",
   "license": "ISC",
