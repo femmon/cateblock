@@ -8,7 +8,10 @@ module.exports = () => {
     return session({
         cookie: {
             maxAge: 60 * 60 * 1000 ,
+
+            // comment out secure when work locally
             secure: true
+
         },
         name: "sessionID",
         proxy: true,

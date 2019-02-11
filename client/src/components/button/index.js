@@ -5,7 +5,7 @@ function Button(props) {
     if (props.style) {
         className += ` ${props.style}`;
     }
-    return (<button className={className}>{props.content}</button>);
+    return (<button className={className} onClick={props.onClick}>{props.content}</button>);
 }
 
 export default Button;
