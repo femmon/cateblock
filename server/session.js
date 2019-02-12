@@ -5,13 +5,9 @@ const RedisStore = require("connect-redis")(session);
 let layout = /^redis:\/\/(.+):(.+)@(.+):(\d+)$/.exec(process.env.REDIS_URL);
 
 module.exports = () => {
-    return session({
+    let sessionConfig = {
         cookie: {
             maxAge: 60 * 60 * 1000 ,
-
-            // comment out secure when work locally
-            secure: true
-
         },
         name: "sessionID",
         proxy: true,
@@ -25,5 +21,9 @@ module.exports = () => {
             password: layout[2],
             port    : layout[4],
         })
-    })
+    };
+    if (process.env.NODE_ENV != "development") {
+        sessionConfig.cookie.secure = true;
+    }
+    return session(sessionConfig);
 }

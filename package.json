@@ -5,7 +5,11 @@
   "main": "app.js",
   "scripts": {
     "build": "cd client && webpack --mode production",
-    "start": "node app && npm run build"
+    "local": "npm run local-build && npm run local-env && node -r dotenv/config app",
+    "local-build": "cd client && webpack --mode=development",
+    "local-env": "heroku config | sed '1,1 d' | sed s/': *'/=/ > .env && echo NODE_ENV=development >> .env",
+    "start": "node app",
+    "heroku-postbuild": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +27,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "dotenv": "^6.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.29.3",

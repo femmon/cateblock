@@ -8,19 +8,16 @@ const PORT = process.env.PORT || 5000
 
 const app = express();
 app.use(helmet());
-
-
-// comment these middleware when run locally
-app.get("*", (req, res, next) => {
-    if (req.headers["x-forwarded-proto"] != "https") {
-        res.redirect("https://" + req.hostname + req.url);
-    }
-    else {
-        next();
-    }
-});
-
-
+if (process.env.NODE_ENV != "development") {
+    app.get("*", (req, res, next) => {
+        if (req.headers["x-forwarded-proto"] != "https") {
+            res.redirect("https://" + req.hostname + req.url);
+        }
+        else {
+            next();
+        }
+    });
+}
 app.use(session());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
