@@ -4,7 +4,7 @@ const session = require("./server/session");
 const accountsRouter = require("./server/routes/accounts");
 const entriesRouter = require("./server/routes/entries");
 const path = require("path");
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 80
 
 const app = express();
 app.use(helmet());

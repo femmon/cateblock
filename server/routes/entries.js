@@ -7,8 +7,8 @@ router.post("/create-entry", async (req, res) => {
     try {
         if (req.session.username) {
             let content = req.body.content;
-            await pool.query("INSERT INTO Entries VALUES (0, ?, ?, DEFAULT);", [req.session.username, content]);
-            res.status(200).end();
+            let results = await pool.query("INSERT INTO Entries VALUES (0, ?, ?, DEFAULT);", [req.session.username, content]);
+            res.status(200).send(results.insertId.toString());
         } else {
             res.status(400).send("Need to log in first");
         }
@@ -20,7 +20,8 @@ router.post("/create-entry", async (req, res) => {
 router.post("/view-entries", async (req, res) => {
     try {
         if (req.session.username) {
-            let results = await pool.query("SELECT EntryID, Content, PostTime FROM Entries WHERE Username = ? ORDER BY EntryID DESC LIMIT 5 OFFSET 0;", [req.session.username]);
+            let offset = req.body.offset || 0;
+            let results = await pool.query("SELECT EntryID, Content, PostTime FROM Entries WHERE Username = ? ORDER BY EntryID DESC LIMIT 5 OFFSET ?;", [req.session.username, offset]);
             res.status(200).send(results);
         } else {
             res.status(400).send("Need to log in first");

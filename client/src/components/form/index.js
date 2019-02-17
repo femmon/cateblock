@@ -1,6 +1,6 @@
-import React from 'react';
-import SignupButton from './components/signup-button';
-import LoginButton from './components/login-button';
+import React from "react";
+import SignupButton from "./components/signup-button";
+import LoginButton from "./components/login-button";
 
 class Form extends React.Component {
     constructor(props) {
@@ -45,8 +45,8 @@ class Form extends React.Component {
     render() {
         return (
             <form>
-                <label>Username<input name="username" onChange={this.handleChange}></input></label>
-                <label>Password<input name="password" type="password" onChange={this.handleChange}></input></label>
+                <label>Username<input name="username" value={this.state.username} onChange={this.handleChange}></input></label>
+                <label>Password<input name="password" type="password" value={this.state.password} onChange={this.handleChange}></input></label>
                 <SignupButton handleClickSignup={(event) => this.handleClickSignup(event)} />
                 <LoginButton handleClickLogin={(event) => this.handleClickLogin(event)} />
             </form>

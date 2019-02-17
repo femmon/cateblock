@@ -9,6 +9,8 @@ const pool  = mysql.createPool({
     password           : layout[2],
     database           : layout[5],
     port               : layout[4],
+    dateStrings        : true,
+    // time is saved in db in UTC. when it goes through mysql module, it is converted into js date object (which it also change to node timezone i think). set dateStrings make time show correctly local too.
     multipleStatements : true
 });
 

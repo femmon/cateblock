@@ -1,5 +1,5 @@
-import React from 'react';
-import Button from '../../../../components/button';
+import React from "react";
+import Button from "../../../../components/button";
 
 function LogoutButton(props) {
     function handleClickLogout() {
@@ -7,7 +7,7 @@ function LogoutButton(props) {
             if (res.status == 200) {
                 props.handleClickStatus("logout");
             }
-        }).catch(err => {throw(err)});
+        }).catch(err => {throw err});
     }
     return (<Button style="logoutButton" content="Log Out" onClick={() => handleClickLogout()} />);
 }

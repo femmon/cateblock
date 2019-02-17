@@ -25,7 +25,7 @@ router.post("/is-available", async (req, res) => {
             res.status(200).send("This username is invalid");
         }
     } catch (err) {
-        throw(err);
+        throw err;
     }
 });
 
@@ -57,7 +57,7 @@ router.post("/signup", async (req, res) => {
             res.status(400).send("Username and/or password is invalid");
         }
     } catch (err) {
-        throw(err);
+        throw err;
     }
 });
 

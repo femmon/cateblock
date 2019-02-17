@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom";
-import Home from './screens/home';
-import Main from './screens/main';
+import Home from "./screens/home";
+import Main from "./screens/main";
 
 class App extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class App extends React.Component {
             } else {
                 this.setState({status: "logout"});
             }
-        }).catch(err => {throw(err)});
+        }).catch(err => {throw err});
     }
     render() {
         switch (this.state.status) {
@@ -38,4 +38,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
