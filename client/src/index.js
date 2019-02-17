@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Home from "./screens/home";
 import Main from "./screens/main";
+import "./style.css";
 
 class App extends React.Component {
     constructor(props) {
@@ -33,7 +34,6 @@ class App extends React.Component {
             case "login":
             case "try":
                 return <Main status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />
-
         }
     }
 }

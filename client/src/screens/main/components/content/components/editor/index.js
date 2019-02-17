@@ -23,7 +23,7 @@ class Editor extends React.Component {
     }
     render() {
         return (
-            <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "#bababa"}} onClick={this.props.handleClickEditorClose}>
+            <div style={{position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "#bababa"}} onClick={this.props.handleClickEditorClose}>
                 <div onClick={event => event.stopPropagation()}>
                     <label htmlFor="Text area">Text area</label>
                     <input name="Text area" value={this.state.content} onChange={this.handleChange} />
