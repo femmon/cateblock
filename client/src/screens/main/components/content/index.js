@@ -69,6 +69,7 @@ class Content extends React.Component {
                     let index = this.state.posts.findIndex(post => post.EntryID == id);
                     if (index != -1) {
                         let posts = JSON.parse(JSON.stringify(this.state.posts));
+                        // this wouldn't work if obj contain function
                         posts.splice(index, 1);
                         this.setState({posts});
                     }
