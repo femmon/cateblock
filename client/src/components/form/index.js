@@ -30,7 +30,7 @@ class Form extends React.Component {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username: this.state.username, password: this.state.password})
             }).then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     this.props.handleClickStatus("login");
                 }
             }).catch(err => {throw err});

@@ -22,7 +22,7 @@ module.exports = () => {
             port    : layout[4],
         })
     };
-    if (process.env.NODE_ENV != "development") {
+    if (process.env.NODE_ENV !== "development") {
         sessionConfig.cookie.secure = true;
     }
     return session(sessionConfig);

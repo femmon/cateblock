@@ -9,8 +9,8 @@ class Main extends React.Component {
         return (
             <React.Fragment>
                 <Header />
-                {this.props.status == "try" && <Form handleClickStatus={(status) => this.props.handleClickStatus(status)} />}
-                {this.props.status == "login" && <LogoutButton handleClickStatus={(status) => this.props.handleClickStatus(status)} />}
+                {this.props.status === "try" && <Form handleClickStatus={(status) => this.props.handleClickStatus(status)} />}
+                {this.props.status === "login" && <LogoutButton handleClickStatus={(status) => this.props.handleClickStatus(status)} />}
                 <Content status={this.props.status} />
             </React.Fragment>
         );

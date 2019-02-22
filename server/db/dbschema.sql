@@ -10,6 +10,7 @@ CREATE TABLE Entries (
     Username VARCHAR(20),
     Content TEXT,
     PostTime DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Edited TINYINT(1) DEFAULT 0,
     FOREIGN KEY (Username)
         REFERENCES Accounts(Username)
         ON DELETE CASCADE

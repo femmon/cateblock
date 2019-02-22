@@ -8,9 +8,9 @@ const PORT = process.env.PORT || 3000
 
 const app = express();
 app.use(helmet());
-if (process.env.NODE_ENV != "development") {
+if (process.env.NODE_ENV !== "development") {
     app.get("*", (req, res, next) => {
-        if (req.headers["x-forwarded-proto"] != "https") {
+        if (req.headers["x-forwarded-proto"] !== "https") {
             res.redirect("https://" + req.hostname + req.url);
         }
         else {

@@ -22,15 +22,24 @@ class Content extends React.Component {
     }
     add(content) {
         return new Promise((resolve, reject) => {
-            if (this.props.status == "try") {
+            if (this.props.status === "try") {
                 this.setState({
-                    posts: [{EntryID: this.state.counter, Content: content, PostTime: new Date().toISOString()}].concat(this.state.posts),
+                    posts: [{
+                        EntryID: this.state.counter,
+                        Content: content,
+                        PostTime: new Date().toISOString(),
+                        Edited: 0
+                    }].concat(this.state.posts),
                     counter: this.state.counter - 1
                 }, resolve);
             } else {
                 fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content})}).then(res => res.text()).then(id => {
                     this.setState({
-                        posts: [{EntryID: id, Content: content, PostTime: new Date().toISOString()}].concat(this.state.posts)
+                        posts: [{EntryID: id,
+                            Content: content,
+                            PostTime: new Date().toISOString(),
+                            Edited: 0
+                        }].concat(this.state.posts)
                     }, resolve);
                 }).catch(err => reject(err));
             }
@@ -41,9 +50,9 @@ class Content extends React.Component {
     }
     edit(content) {
         return new Promise((resolve, reject) => {
-            if (this.props.status == "try") {
+            if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
-                    if (post.EntryID != this.state.editor[1]) return post;
+                    if (post.EntryID !== this.state.editor[1]) return post;
                     post.Content = content;
                     post.PostTime = new Date().toISOString();
                     return post;
@@ -52,9 +61,10 @@ class Content extends React.Component {
             } else {
                 fetch("/edit-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content, entryID: this.state.editor[1]})}).then(res => {
                     let posts = this.state.posts.map(post => {
-                        if (post.EntryID != this.state.editor[1]) return post;
+                        if (post.EntryID !== this.state.editor[1]) return post;
                         post.Content = content;
                         post.PostTime = new Date().toISOString();
+                        post.Edited = 1;
                         return post;
                     });
                     this.setState({posts}, resolve);
@@ -63,11 +73,11 @@ class Content extends React.Component {
         });
     }
     postDelete(id) {
-        if (this.props.status == "login") {
+        if (this.props.status === "login") {
             fetch("/delete-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({entryID: id})}).then(res => {
-                if (res && res.status == 200) {
-                    let index = this.state.posts.findIndex(post => post.EntryID == id);
-                    if (index != -1) {
+                if (res && res.status === 200) {
+                    let index = this.state.posts.findIndex(post => post.EntryID === id);
+                    if (index !== -1) {
                         let posts = JSON.parse(JSON.stringify(this.state.posts));
                         // this wouldn't work if obj contain function
                         posts.splice(index, 1);
@@ -76,8 +86,8 @@ class Content extends React.Component {
                 }
             });
         } else {
-            let index = this.state.posts.findIndex(post => post.EntryID == id);
-            if (index != -1) {
+            let index = this.state.posts.findIndex(post => post.EntryID === id);
+            if (index !== -1) {
                 let posts = JSON.parse(JSON.stringify(this.state.posts));
                 posts.splice(index, 1);
                 this.setState({posts});
@@ -101,10 +111,10 @@ class Content extends React.Component {
         this.handleClickEditor("add");
     }
     handleClickEditorEdit(id) {
-        this.handleClickEditor("edit", id, this.state.posts.filter(post => post.EntryID == id)[0].Content);
+        this.handleClickEditor("edit", id, this.state.posts.filter(post => post.EntryID === id)[0].Content);
     }
     componentDidMount() {
-        if (this.props.status == "login") {
+        if (this.props.status === "login") {
             fetch("/view-entries", {method: "POST"})
             .then(res => res.json())
             .then(posts => this.setState({posts}))
@@ -113,7 +123,7 @@ class Content extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.status != this.props.status) {
+        if (prevProps.status !== this.props.status) {
             Promise.all(this.state.posts.map(post =>
                 fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content: post.Content})}).then(res => res.text()).then(id => {
                     post.EntryID = id;
@@ -128,7 +138,7 @@ class Content extends React.Component {
                 <Stack posts={this.state.posts} edit={content => this.edit(content)} postDelete={id => this.postDelete(id)} handleClickEditorEdit={id => this.handleClickEditorEdit(id)} />
                 {this.state.editor[0] && <Editor editor={this.state.editor} handleClickEditorClose={() => this.handleClickEditorClose()} add={content => this.add(content)} edit={content => this.edit(content)} />}
                 <div onClick={this.handleClickEditorAdd}>Add</div>
-                {this.props.status == "login" && <ViewButton view={() => this.view()} />}
+                {this.props.status === "login" && <ViewButton view={() => this.view()} />}
             </React.Fragment>
         );
     }

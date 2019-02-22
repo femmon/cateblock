@@ -18,7 +18,7 @@ class App extends React.Component {
     }
     componentDidMount() {
         fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(text => {
-            if (text == "In") {
+            if (text === "In") {
                 this.setState({status: "login"});
             } else {
                 this.setState({status: "logout"});
@@ -30,10 +30,11 @@ class App extends React.Component {
             case null:
             case "logout":
                 return <Home status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />;
-                break;
             case "login":
             case "try":
-                return <Main status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />
+                return <Main status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />;
+            default:
+                throw new Error("Not supported status");
         }
     }
 }

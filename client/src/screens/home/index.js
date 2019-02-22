@@ -9,7 +9,7 @@ class Home extends React.Component {
             <React.Fragment>
                 <Header />
                 <h2>What good thing happened today?</h2>
-                {this.props.status == "logout" && (
+                {this.props.status === "logout" && (
                     <React.Fragment>
                         <TryButton handleClickStatus={(status) => this.props.handleClickStatus(status)} />
                         <Form handleClickStatus={(status) => this.props.handleClickStatus(status)} />

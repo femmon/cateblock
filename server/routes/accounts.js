@@ -87,7 +87,7 @@ router.post("/login", async (req, res) => {
                     throw err;
                 }
                 hash = hash.toString("base64");
-                if (hash == results[0].Hash) {
+                if (hash === results[0].Hash) {
                     req.session.username = username;
                     res.status(200).end();
                 } else {

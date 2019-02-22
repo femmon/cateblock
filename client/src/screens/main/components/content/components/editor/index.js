@@ -27,7 +27,7 @@ class Editor extends React.Component {
                 <div onClick={event => event.stopPropagation()}>
                     <label htmlFor="Text area">Text area</label>
                     <input name="Text area" value={this.state.content} onChange={this.handleChange} />
-                    {this.props.editor[0] == "add" ? <button onClick={this.add}>Add</button> : <button onClick={this.edit}>Edit</button>}
+                    {this.props.editor[0] === "add" ? <button onClick={this.add}>Add</button> : <button onClick={this.edit}>Edit</button>}
                 </div>
             </div>
         );
