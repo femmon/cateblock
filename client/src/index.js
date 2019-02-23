@@ -17,6 +17,7 @@ class App extends React.Component {
         this.setState({status});
     }
     componentDidMount() {
+        if (location.pathname !== "/") return this.setState({status: "lost"});
         fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(text => {
             if (text === "In") {
                 this.setState({status: "login"});
@@ -27,6 +28,22 @@ class App extends React.Component {
     }
     render() {
         switch (this.state.status) {
+            case "lost":
+                return (
+                    <div>
+                        <h1>404</h1>
+                        <p>Hey there buddy. Are you lost</p>
+                        <button onClick={() => {
+                            history.replaceState({}, "", "/");
+                            fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(text => {
+                                if (text === "In") {
+                                    this.setState({status: "login"});
+                                } else {
+                                    this.setState({status: "logout"});
+                                }
+                            }).catch(err => {throw err});
+                        }}>Go to home page</button>
+                    </div>);
             case null:
             case "logout":
                 return <Home status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />;
