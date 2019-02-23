@@ -33,7 +33,7 @@ class Content extends React.Component {
                     counter: this.state.counter - 1
                 }, resolve);
             } else {
-                fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content})}).then(res => res.text()).then(id => {
+                fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content: [content]})}).then(res => res.text()).then(id => {
                     this.setState({
                         posts: [{EntryID: id,
                             Content: content,
@@ -123,13 +123,19 @@ class Content extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.status !== this.props.status) {
-            Promise.all(this.state.posts.map(post =>
-                fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content: post.Content})}).then(res => res.text()).then(id => {
-                    post.EntryID = id;
+        if (prevProps.status !== this.props.status && this.state.posts !== []) {
+            fetch("/create-entry", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({content: this.state.posts.map(post => post.Content).reverse()})
+            }).then(res => res.text()).then(id => {
+                let posts = this.state.posts.map((post, index) => {
+                    post.EntryID = Number(id) + this.state.posts.length - index - 1;
                     return post;
-                })
-            )).then(posts => this.setState({posts})).catch(err => {throw err;});
+                });
+                return posts;
+            }).then(posts => this.setState({posts})).catch(err => {throw err;});
+
         }
     }
     render() {

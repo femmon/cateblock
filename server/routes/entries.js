@@ -7,7 +7,8 @@ router.post("/create-entry", async (req, res) => {
     try {
         if (req.session.username) {
             let content = req.body.content;
-            let results = await pool.query("INSERT INTO Entries VALUES (0, ?, ?, DEFAULT, DEFAULT);", [req.session.username, content]);
+            let query = "INSERT INTO Entries VALUES " + Array(content.length).fill("(0, \"" + req.session.username + "\", ?, DEFAULT, DEFAULT)").join(", ") + ";";
+            let results = await pool.query(query, [...content]);
             res.status(200).send(results.insertId.toString());
         } else {
             res.status(400).send("Need to log in first");
