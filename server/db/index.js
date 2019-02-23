@@ -4,14 +4,13 @@ const mysql = require("mysql");
 var layout = /^mysql:\/\/(.+):(.+)@(.+):(\d+)\/(.+)$/.exec(process.env.JAWSDB_URL);
 const pool  = mysql.createPool({
     connectionLimit    : 5,
-    host               : layout[3],
-    user               : layout[1],
-    password           : layout[2],
     database           : layout[5],
+    host               : layout[3],
+    multipleStatements : true,
+    password           : layout[2],
     port               : layout[4],
-    dateStrings        : true,
-    // time is saved in db in UTC. when it goes through mysql module, it is converted into js date object (which it also change to node timezone i think). set dateStrings make time show correctly local too.
-    multipleStatements : true
+    timezone           : "+00:00",
+    user               : layout[1]
 });
 
 module.exports = {
