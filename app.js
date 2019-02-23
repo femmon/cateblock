@@ -25,6 +25,6 @@ app.use(accountsRouter);
 app.use(entriesRouter);
 app.use(express.static(path.join(__dirname, "client/dist")))
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/dist/index.html"));
+    res.status(404).sendFile(path.join(__dirname, "client/dist/index.html"));
 })
 app.listen(PORT);

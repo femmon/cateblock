@@ -7,7 +7,7 @@ let layout = /^redis:\/\/(.+):(.+)@(.+):(\d+)$/.exec(process.env.REDIS_URL);
 module.exports = () => {
     let sessionConfig = {
         cookie: {
-            maxAge: 60 * 60 * 1000 ,
+            maxAge: 60 * 60 * 1000,
         },
         name: "sessionID",
         proxy: true,
