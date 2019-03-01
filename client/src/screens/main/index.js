@@ -10,7 +10,7 @@ class Main extends React.Component {
         this.handleClickDeleteAccount = this.handleClickDeleteAccount.bind(this);
     }
     handleClickDeleteAccount() {
-        fetch("/delete-account", {method: "POST"}).then(res => {
+        fetch("/accounts", {method: "DELETE"}).then(res => {
             if (res.status === 200) {
                 this.props.handleClickStatus("logout");
             }

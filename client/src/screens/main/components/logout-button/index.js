@@ -3,7 +3,7 @@ import Button from "../../../../components/button";
 
 function LogoutButton(props) {
     function handleClickLogout() {
-        fetch("/signout", {method: "POST"}).then(res => {
+        fetch("/accounts/session", {method: "DELETE"}).then(res => {
             if (res.status === 200) {
                 props.handleClickStatus("logout");
             }

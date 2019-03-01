@@ -33,9 +33,10 @@ class Content extends React.Component {
                     counter: this.state.counter - 1
                 }, resolve);
             } else {
-                fetch("/create-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content: [content]})}).then(res => res.text()).then(id => {
+                this.createEntries([content]).then(id => {
                     this.setState({
-                        posts: [{EntryID: id,
+                        posts: [{
+                            EntryID: id,
                             Content: content,
                             PostTime: new Date().toISOString(),
                             Edited: 0
@@ -48,6 +49,14 @@ class Content extends React.Component {
             // then both setstate?
         });
     }
+    createEntries(content) {
+        return fetch("/entries", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({content})
+        }).then(res => res.text());
+    }
+
     edit(content) {
         return new Promise((resolve, reject) => {
             if (this.props.status === "try") {
@@ -59,9 +68,10 @@ class Content extends React.Component {
                 });
                 this.setState({posts}, resolve);
             } else {
-                fetch("/edit-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content, entryID: this.state.editor[1]})}).then(res => {
+                fetch("/entries", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content, entryID: this.state.editor[1]})}).then(res => {
                     let posts = this.state.posts.map(post => {
                         if (post.EntryID !== this.state.editor[1]) return post;
+                        // TODO: map is shallow, this still mutate the state.
                         post.Content = content;
                         post.PostTime = new Date().toISOString();
                         post.Edited = 1;
@@ -74,7 +84,7 @@ class Content extends React.Component {
     }
     postDelete(id) {
         if (this.props.status === "login") {
-            fetch("/delete-entry", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({entryID: id})}).then(res => {
+            fetch("/entries", {method: "DELETE", headers: {"Content-Type": "application/json"}, body: JSON.stringify({entryID: id})}).then(res => {
                 if (res && res.status === 200) {
                     let index = this.state.posts.findIndex(post => post.EntryID === id);
                     if (index !== -1) {
@@ -95,7 +105,7 @@ class Content extends React.Component {
         }
     }
     view() {
-        fetch("/view-entries", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({offset: this.state.posts.length})}).then(res => res.json()).then(posts => {
+        fetch(`/entries/${this.state.posts.length}`).then(res => res.json()).then(posts => {
             this.setState({
                 posts: this.state.posts.concat(posts)
             });
@@ -115,20 +125,12 @@ class Content extends React.Component {
     }
     componentDidMount() {
         if (this.props.status === "login") {
-            fetch("/view-entries", {method: "POST"})
-            .then(res => res.json())
-            .then(posts => this.setState({posts}))
-            .catch(err => {throw err;});
-            // remove this fetch with this.view()
+            this.view();
         }
     }
     componentDidUpdate(prevProps) {
         if (prevProps.status !== this.props.status && this.state.posts !== []) {
-            fetch("/create-entry", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({content: this.state.posts.map(post => post.Content).reverse()})
-            }).then(res => res.text()).then(id => {
+            this.createEntries(this.state.posts.map(post => post.Content).reverse()).then(id => {
                 let posts = this.state.posts.map((post, index) => {
                     post.EntryID = Number(id) + this.state.posts.length - index - 1;
                     return post;

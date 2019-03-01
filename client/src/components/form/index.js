@@ -10,14 +10,6 @@ class Form extends React.Component {
             password: ""
         }
         this.handleChange = this.handleChange.bind(this);
-
-        // returned function is arrow function so the returned function use this context of handleClick
-        // which is Form because handleClick a method of Form
-        // this.handleClick = this.handleClick.bind(this);
-
-        // maybe its because these 2 functions bubble up to form when called
-        // this.handleClickLogin = this.handleClickLogin.bind(this);
-        // this.handleClickSignup = this.handleClickSignup.bind(this);
     }
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
@@ -25,7 +17,7 @@ class Form extends React.Component {
     handleClick(path) {
         return (event) => {
             event.preventDefault();
-            fetch(`/${path}`, {
+            fetch(`/accounts/${path}`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username: this.state.username, password: this.state.password})
@@ -37,10 +29,10 @@ class Form extends React.Component {
         }
     }
     handleClickSignup(event) {
-        return this.handleClick("signup")(event);
+        return this.handleClick("")(event);
     }
     handleClickLogin(event) {
-        return this.handleClick("login")(event);
+        return this.handleClick("session")(event);
     }
     render() {
         return (

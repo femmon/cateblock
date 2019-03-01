@@ -21,8 +21,8 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(accountsRouter);
-app.use(entriesRouter);
+app.use("/accounts", accountsRouter);
+app.use("/entries", entriesRouter);
 app.use(express.static(path.join(__dirname, "client/dist")))
 app.get("*", (req, res) => {
     res.status(404).sendFile(path.join(__dirname, "client/dist/index.html"));

@@ -3,7 +3,38 @@ const pool = require("../db");
 
 const router = express.Router();
 
-router.post("/create-entry", async (req, res) => {
+// Delete
+router.delete("/", async (req, res) => {
+    try {
+        if (req.session.username) {
+            let entryID = req.body.entryID;
+            await pool.query("DELETE FROM Entries WHERE Username = ? AND EntryID = ?;", [req.session.username, entryID]);
+            res.status(200).end();
+        } else {
+            res.status(400).send("Need to log in first");
+        }
+    } catch (err) {
+        throw err;
+    }
+});
+
+// View entries
+router.get("/:offset(\\d+)", async (req, res) => {
+    try {
+        if (req.session.username) {
+            let offset = Number(req.params.offset) || 0;
+            let results = await pool.query("SELECT EntryID, Content, PostTime, Edited FROM Entries WHERE Username = ? ORDER BY EntryID DESC LIMIT 5 OFFSET ?;", [req.session.username, offset]);
+            res.status(200).send(results);
+        } else {
+            res.status(400).send("Need to log in first");
+        }
+    } catch (err) {
+        throw err;
+    }
+});
+
+// Create entry
+router.post("/", async (req, res) => {
     try {
         if (req.session.username) {
             let content = req.body.content;
@@ -18,35 +49,8 @@ router.post("/create-entry", async (req, res) => {
     }
 });
 
-router.post("/view-entries", async (req, res) => {
-    try {
-        if (req.session.username) {
-            let offset = req.body.offset || 0;
-            let results = await pool.query("SELECT EntryID, Content, PostTime, Edited FROM Entries WHERE Username = ? ORDER BY EntryID DESC LIMIT 5 OFFSET ?;", [req.session.username, offset]);
-            res.status(200).send(results);
-        } else {
-            res.status(400).send("Need to log in first");
-        }
-    } catch (err) {
-        throw err;
-    }
-});
-
-router.post("/delete-entry", async (req, res) => {
-    try {
-        if (req.session.username) {
-            let entryID = req.body.entryID;
-            await pool.query("DELETE FROM Entries WHERE Username = ? AND EntryID = ?;", [req.session.username, entryID]);
-            res.status(200).end();
-        } else {
-            res.status(400).send("Need to log in first");
-        }
-    } catch (err) {
-        throw err;
-    }
-});
-
-router.post("/edit-entry", async (req, res) => {
+// Edit
+router.put("/", async (req, res) => {
     try {
         if (req.session.username) {
             let entryID = req.body.entryID;
@@ -72,12 +76,27 @@ router.post("/edit-entry", async (req, res) => {
     }
 });
 
-router.post("/view-edit", async (req, res) => {
+// Download post
+// router.get("/all", async (req, res) => {
+//     try {
+//         if (req.session.username) {
+//             let results = await pool.query("SELECT EntryID, Content, PostTime, Edited FROM Entries WHERE Username = ? ORDER BY EntryID DESC;", [req.session.username]);
+//             res.status(200).download("path", "file name (optional)");
+//         } else {
+//             res.status(400).send("Need to log in first");
+//         }
+//     } catch (err) {
+//         throw err;
+//     }
+// });
+
+// View history
+router.get("/history/:entryID(\\d+)", async (req, res) => {
     try {
         if (req.session.username) {
-            let entryID = req.body.entryID;
+            let entryID = req.params.entryID;
             let connection = await pool.getConnection();
-            let results = await pool.query("SELECT COUNT(*) FROM Entries WHERE Username = ? and EntryID = ?;", [req.session.username, entryID], connection);
+            let results = await pool.query("SELECT COUNT(*) FROM Entries WHERE Username = ? AND EntryID = ?;", [req.session.username, entryID], connection);
             if (results[0]["COUNT(*)"]) {
                 let results = await pool.query("SELECT Content, PostTime FROM History WHERE EntryID = ? ORDER BY Generations;", [entryID], connection);
                 connection.release();
@@ -92,6 +111,7 @@ router.post("/view-edit", async (req, res) => {
     } catch (err) {
         throw err;
     }
+    // SELECT Content, PostTime FROM History WHERE EntryID = ? AND EXITSTS (SELECT * FROM Entries WHERE Username = ? AND EntryID = ?) ORDER BY Generations;
 });
 
 module.exports = router;

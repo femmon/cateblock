@@ -16,15 +16,18 @@ class App extends React.Component {
     handleClickStatus(status) {
         this.setState({status});
     }
-    componentDidMount() {
-        if (window.location.pathname !== "/") return this.setState({status: "lost"});
-        fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(text => {
+    checkSession() {
+        fetch("/accounts/session").then(res => res.text()).then(text => {
             if (text === "In") {
                 this.setState({status: "login"});
             } else {
                 this.setState({status: "logout"});
             }
         }).catch(err => {throw err});
+    }
+    componentDidMount() {
+        if (window.location.pathname !== "/") return this.setState({status: "lost"});
+        return this.checkSession();
     }
     render() {
         switch (this.state.status) {
@@ -35,13 +38,7 @@ class App extends React.Component {
                         <p>Hey there buddy. Are you lost</p>
                         <button onClick={() => {
                             window.history.replaceState({}, "", "/");
-                            fetch("/in-or-out", {method: "POST"}).then(res => res.text()).then(text => {
-                                if (text === "In") {
-                                    this.setState({status: "login"});
-                                } else {
-                                    this.setState({status: "logout"});
-                                }
-                            }).catch(err => {throw err});
+                            this.checkSession();
                         }}>Go to home page</button>
                     </div>);
             case null:

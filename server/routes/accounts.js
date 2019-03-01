@@ -11,25 +11,8 @@ function isUsernameValid(username) {
     return rule.test(username);
 }
 
-router.post("/is-available", async (req, res) => {
-    try {
-        let username = req.body.username;
-        if (isUsernameValid(username)) {
-            let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
-            if (!results[0]["COUNT(*)"]) {
-                res.status(200).send("This username is available");
-            } else {
-                res.status(200).send("This username is unavailable");
-            }
-        } else {
-            res.status(200).send("This username is invalid");
-        }
-    } catch (err) {
-        throw err;
-    }
-});
-
-router.post("/signup", async (req, res) => {
+// Sign up
+router.post("/", async (req, res) => {
     try {
         let username = req.body.username;
         let password = req.body.password;
@@ -61,10 +44,10 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-router.post("/delete-account", async (req, res) => {
+// log out
+router.delete("/session", async (req, res) => {
     try {
         if (req.session.username) {
-            await pool.query("DELETE FROM Accounts WHERE Username = ?;", [req.session.username]);
             req.session.destroy();
         }
         res.status(200).end();
@@ -73,7 +56,17 @@ router.post("/delete-account", async (req, res) => {
     }
 });
 
-router.post("/login", async (req, res) => {
+// Is logged in?
+router.get("/session", (req, res) => {
+    if (req.session.username) {
+        res.status(200).send("In");
+    } else {
+        res.status(200).send("Out");
+    }
+});
+
+// Log in
+router.post("/session", async (req, res) => {
     try {
         let username = req.body.username;
         let password = req.body.password;
@@ -102,22 +95,34 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.post("/signout", async (req, res) => {
+router.post("/is-available", async (req, res) => {
     try {
-        if (req.session.username) {
-            req.session.destroy();
+        let username = req.body.username;
+        if (isUsernameValid(username)) {
+            let results = await pool.query("SELECT COUNT(*) FROM Accounts WHERE Username = ?;", [username]);
+            if (!results[0]["COUNT(*)"]) {
+                res.status(200).send("This username is available");
+            } else {
+                res.status(200).send("This username is unavailable");
+            }
+        } else {
+            res.status(200).send("This username is invalid");
         }
-        res.status(200).end();
     } catch (err) {
         throw err;
     }
 });
 
-router.post("/in-or-out", (req, res) => {
-    if (req.session.username) {
-        res.send("In");
-    } else {
-        res.send("Out");
+// Delete account
+router.delete("/", async (req, res) => {
+    try {
+        if (req.session.username) {
+            await pool.query("DELETE FROM Accounts WHERE Username = ?;", [req.session.username]);
+            req.session.destroy();
+        }
+        res.status(200).end();
+    } catch (err) {
+        throw err;
     }
 });
 

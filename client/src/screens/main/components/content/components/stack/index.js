@@ -9,11 +9,7 @@ class Stack extends React.Component {
         }
     }
     viewEdit(id) {
-        fetch("/view-edit", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({entryID: id})
-        }).then(res => res.json()).then(posts => {
+        fetch(`/entries/history/${id}`).then(res => res.json()).then(posts => {
             this.setState({
                 history: id,
                 posts
