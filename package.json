@@ -8,7 +8,7 @@
     "lint": "eslint --ignore-path .gitignore ./",
     "local": "npm-run-all local-env -p local-hot-backend local-hot-frontend",
     "local-build": "cd client && webpack --config webpack.dev.js",
-    "local-env": "heroku config | sed \"1,1 d\" | sed s/\": *\"/=/ > .env && echo NODE_ENV=development >> .env",
+    "local-env": "cd scripts && local-env.sh",
     "local-hot-backend": "nodemon -r dotenv/config app --ignore client",
     "local-hot-frontend": "cd client && webpack-dev-server --config webpack.dev.js",
     "start": "NODE_ENV=production node app"
