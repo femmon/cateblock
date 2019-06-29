@@ -1,18 +1,16 @@
 import React from "react";
 import Header from "../../components/header";
-import Form from "../../components/form";
-import LogoutButton from "./components/logout-button";
+import FormContainer from "../../components/form-container";
+import Button from "../../components/button";
 import Content from "./components/content";
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClickDeleteAccount = this.handleClickDeleteAccount.bind(this);
-    }
-    handleClickDeleteAccount() {
-        fetch("/accounts", {method: "DELETE"}).then(res => {
+    handleClick(path) {
+        fetch(`/accounts/${path}`, {
+            method: "DELETE"
+        }).then(res => {
             if (res.status === 200) {
-                this.props.handleClickStatus("logout");
+                this.props.handleStateLogout();
             }
         }).catch(err => {throw err});
     }
@@ -20,11 +18,23 @@ class Main extends React.Component {
         return (
             <React.Fragment>
                 <Header />
-                {this.props.status === "try" && <Form handleClickStatus={(status) => this.props.handleClickStatus(status)} />}
+                {this.props.status === "try" && (
+                    <FormContainer
+                        handleStateLogin={this.props.handleStateLogin}
+                    />
+                )}
                 {this.props.status === "login" && (
                     <React.Fragment>
-                        <div onClick={this.handleClickDeleteAccount}>Delete Account</div>
-                        <LogoutButton handleClickStatus={(status) => this.props.handleClickStatus(status)} />
+                        <Button
+                            className="deleteAccButton"
+                            content="Delete Account"
+                            onClick={() => this.handleClick("")}
+                        />
+                        <Button
+                            className="logoutButton"
+                            content="Log Out"
+                            onClick={() => this.handleClick("session")}
+                        />
                     </React.Fragment>
                 )}
                 {/* function returnAccount() {

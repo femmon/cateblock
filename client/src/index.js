@@ -9,12 +9,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             status: null
-            // null, login, logout, try
-        }
-        this.handleClickStatus = this.handleClickStatus.bind(this);
-    }
-    handleClickStatus(status) {
-        this.setState({status});
+        };
     }
     checkSession() {
         fetch("/accounts/session").then(res => res.text()).then(text => {
@@ -43,10 +38,22 @@ class App extends React.Component {
                     </div>);
             case null:
             case "logout":
-                return <Home status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />;
+                return (
+                    <Home
+                        status={this.state.status}
+                        handleStateLogin={() => this.setState({status: "login"})}
+                        handleStateTry={() => this.setState({status: "try"})}
+                    />
+                );
             case "login":
             case "try":
-                return <Main status={this.state.status} handleClickStatus={(status) => this.handleClickStatus(status)} />;
+                return (
+                    <Main
+                        status={this.state.status}
+                        handleStateLogin={() => this.setState({status: "login"})}
+                        handleStateLogout={() => this.setState({status: "logout"})}
+                    />
+                );
             default:
                 throw new Error("Not supported status");
         }
