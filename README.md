@@ -16,11 +16,14 @@
 
 * eslint:
   * eslint-config-react-app:
+    * @typescript-eslint/eslint-plugin
+    * @typescript-eslint/parser
     * babel-eslint
     * eslint-plugin-flowtype
     * eslint-plugin-import
     * eslint-plugin-jsx-a11y
     * eslint-plugin-react
+    * eslint-plugin-react-hooks
 * dotenv
 * nodemon
 * npm-run-all
