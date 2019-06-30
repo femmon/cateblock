@@ -29,7 +29,7 @@ class Stack extends React.Component {
                     return (
                         <div key={EntryID} style={{border: "5px solid black"}}>
                             <div>
-                                <p>{new Date(PostTime).toLocaleString()}</p>
+                                <p>{toLocalePostTime(PostTime)}</p>
                                 {Edited !== 0 && <p>Edited</p>}
                                 <p>Hamburger
                                     <span onClick={() => this.props.handleClickEditorEdit(EntryID)}>Editor </span>
@@ -44,7 +44,7 @@ class Stack extends React.Component {
                                     {this.state.posts.map(({Content, PostTime}, index) => {
                                         return (
                                             <div key={index} style={{border: "5px solid black"}}>
-                                                <p>{new Date(PostTime).toLocaleString()}</p>
+                                                <p>{toLocalePostTime(PostTime)}</p>
                                                 <p>{Content}</p>
                                             </div>
                                         )
@@ -57,6 +57,10 @@ class Stack extends React.Component {
             </div>
         );
     }
+}
+
+function toLocalePostTime(PostTime) {
+    return new Date(PostTime).toLocaleString().replace(/:\d{2} /, " ");
 }
 
 export default Stack;
