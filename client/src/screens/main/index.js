@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../../components/logo";
 import FormContainer from "../../components/form-container";
 import Button from "../../components/button";
+import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
 
 class Main extends React.Component {
@@ -25,11 +26,9 @@ class Main extends React.Component {
                     />
                 )}
 
-                {this.props.status === "login" && (<React.Fragment>
-                    <Button
-                        className="deleteAccButton"
-                        content="Delete Account"
-                        onClick={() => this.handleClick("")}
+                {this.props.status === "login" && <React.Fragment>
+                    <AccountSetting
+                        handleDeleteAccount={() => this.handleClick("")}
                     />
 
                     <Button
@@ -37,7 +36,7 @@ class Main extends React.Component {
                         content="Log Out"
                         onClick={() => this.handleClick("session")}
                     />
-                </React.Fragment>)}
+                </React.Fragment>}
             </header>
 
             <main>
