@@ -129,15 +129,23 @@ class Content extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.status !== this.props.status && this.state.posts.length !== 0) {
-            this.createEntries(this.state.posts.map(post => post.Content).reverse()).then(id => {
-                let posts = this.state.posts.map((post, index) => {
-                    post.EntryID = Number(id) + this.state.posts.length - index - 1;
-                    return post;
-                });
-                return posts;
-            }).then(posts => this.setState({posts})).catch(err => {throw err;});
+        if (prevProps.status !== this.props.status) {
+            if (this.state.posts.length !== 0) {
+                let newPosts = this.state.posts.map(post => post.Content).reverse();
 
+                this.createEntries(newPosts).then(id => {
+                    let posts = this.state.posts.map((post, index) => {
+                        post.EntryID = Number(id) + this.state.posts.length - index - 1;
+                        return post;
+                    });
+
+                    return posts;
+                })
+                .then(posts => this.setState({posts}))
+                .then(this.view).catch(err => {throw err;});
+            } else {
+                this.view()
+            }
         }
     }
     render() {
