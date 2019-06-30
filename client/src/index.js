@@ -21,7 +21,10 @@ class App extends React.Component {
         }).catch(err => {throw err});
     }
     componentDidMount() {
-        if (window.location.pathname !== "/") return this.setState({status: "lost"});
+        if (window.location.pathname !== "/") {
+            return this.setState({status: "lost"});
+        }
+
         return this.checkSession();
     }
     render() {
@@ -35,7 +38,9 @@ class App extends React.Component {
                             window.history.replaceState({}, "", "/");
                             this.checkSession();
                         }}>Go to home page</button>
-                    </div>);
+                    </div>
+                );
+
             case null:
             case "logout":
                 return (
@@ -45,6 +50,7 @@ class App extends React.Component {
                         handleStateTry={() => this.setState({status: "try"})}
                     />
                 );
+
             case "login":
             case "try":
                 return (
@@ -54,6 +60,7 @@ class App extends React.Component {
                         handleStateLogout={() => this.setState({status: "logout"})}
                     />
                 );
+
             default:
                 throw new Error("Not supported status");
         }
