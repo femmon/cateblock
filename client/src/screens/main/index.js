@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../components/logo";
-import FormContainer from "../../components/form-container";
 import Button from "../../components/button";
+import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
 
@@ -21,7 +21,7 @@ class Main extends React.Component {
                 <Logo />
 
                 {this.props.status === "try" && (
-                    <FormContainer
+                    <AccessAccount
                         handleStateLogin={this.props.handleStateLogin}
                     />
                 )}
