@@ -129,7 +129,7 @@ class Content extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.status !== this.props.status && this.state.posts !== []) {
+        if (prevProps.status !== this.props.status && this.state.posts.length !== 0) {
             this.createEntries(this.state.posts.map(post => post.Content).reverse()).then(id => {
                 let posts = this.state.posts.map((post, index) => {
                     post.EntryID = Number(id) + this.state.posts.length - index - 1;
