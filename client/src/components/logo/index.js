@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header(props) {
+function Logo(props) {
     return (
         <h1>
             <svg viewBox="0 0 130 35" height="30px">
@@ -10,4 +10,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default Logo;

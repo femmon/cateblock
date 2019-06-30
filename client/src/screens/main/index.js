@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/header";
+import Logo from "../../components/logo";
 import FormContainer from "../../components/form-container";
 import Button from "../../components/button";
 import Content from "./components/content";
@@ -17,7 +17,7 @@ class Main extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Header />
+                <Logo />
                 {this.props.status === "try" && (
                     <FormContainer
                         handleStateLogin={this.props.handleStateLogin}

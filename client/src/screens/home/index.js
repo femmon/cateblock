@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "../../components/header";
+import Logo from "../../components/logo";
 import Button from "../../components/button";
 import FormContainer from "../../components/form-container";
 
 function Home(props) {
     return (
         <React.Fragment>
-            <Header />
+            <Logo />
             <h2>What good thing happened today?</h2>
             {props.status === "logout" && (
                 <React.Fragment>
