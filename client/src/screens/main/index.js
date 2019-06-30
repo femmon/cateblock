@@ -15,36 +15,35 @@ class Main extends React.Component {
         }).catch(err => {throw err});
     }
     render() {
-        return (
-            <React.Fragment>
+        return (<React.Fragment>
+            <header>
                 <Logo />
+
                 {this.props.status === "try" && (
                     <FormContainer
                         handleStateLogin={this.props.handleStateLogin}
                     />
                 )}
-                {this.props.status === "login" && (
-                    <React.Fragment>
-                        <Button
-                            className="deleteAccButton"
-                            content="Delete Account"
-                            onClick={() => this.handleClick("")}
-                        />
-                        <Button
-                            className="logoutButton"
-                            content="Log Out"
-                            onClick={() => this.handleClick("session")}
-                        />
-                    </React.Fragment>
-                )}
-                {/* function returnAccount() {
-                    let logoutButton = <LogoutButton handleClickStatus={(status) => this.props.handleClickStatus(status)} />
-                    return <Hamburger child={[accountSetting, logoutButton]}>
-                } */}
-                {/* {this.props.status === "login" && returnAccount()} */}
+
+                {this.props.status === "login" && (<React.Fragment>
+                    <Button
+                        className="deleteAccButton"
+                        content="Delete Account"
+                        onClick={() => this.handleClick("")}
+                    />
+
+                    <Button
+                        className="logoutButton"
+                        content="Log Out"
+                        onClick={() => this.handleClick("session")}
+                    />
+                </React.Fragment>)}
+            </header>
+
+            <main>
                 <Content status={this.props.status} />
-            </React.Fragment>
-        );
+            </main>
+        </React.Fragment>);
     }
 }
 
