@@ -30,6 +30,7 @@ class Editor extends React.Component {
                     name="Text area"
                     value={this.state.content}
                     onChange={this.handleChange}
+                    autoFocus
                 />
 
                 {this.props.editor[0] === "add" ?
