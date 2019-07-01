@@ -32,8 +32,17 @@ class Stack extends React.Component {
                                 <p>{toLocalePostTime(PostTime)}</p>
                                 {Edited !== 0 && <p>Edited</p>}
                                 <p>Hamburger
-                                    <span onClick={() => this.props.handleClickEditorEdit(EntryID)}>Editor </span>
-                                    {Edited !== 0 && <span onClick={() => this.viewEdit(EntryID)}>View edit </span>}
+                                    <span onClick={() => {
+                                        if (this.state.history === EntryID) {
+                                            this.closeViewEdit();
+                                        }
+                                        this.props.handleClickEditorEdit(EntryID);
+                                    }}>Editor </span>
+                                    {Edited !== 0 && <span onClick={() => {
+                                        // Close any open post history first, then open the requested one.
+                                        this.closeViewEdit();
+                                        this.viewEdit(EntryID);
+                                    }}>View edit </span>}
                                     <span onClick={() => this.props.postDelete(EntryID)}>Delete</span>
                                 </p>
                             </div>
