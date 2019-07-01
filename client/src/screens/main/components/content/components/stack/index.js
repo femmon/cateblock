@@ -1,4 +1,5 @@
 import React from "react";
+import Hamburger from "./components/hamburger";
 
 class Stack extends React.Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class Stack extends React.Component {
             history: null,
             posts: []
         }
+        this.closeViewEdit = this.closeViewEdit.bind(this);
     }
     viewEdit(id) {
         fetch(`/entries/history/${id}`).then(res => res.json()).then(posts => {
@@ -31,20 +33,16 @@ class Stack extends React.Component {
                             <div>
                                 <p>{toLocalePostTime(PostTime)}</p>
                                 {Edited !== 0 && <p>Edited</p>}
-                                <p>Hamburger
-                                    <span onClick={() => {
-                                        if (this.state.history === EntryID) {
-                                            this.closeViewEdit();
-                                        }
+                                <Hamburger
+                                    isOpeningHistory={this.state.history === EntryID}
+                                    closeViewEdit={this.closeViewEdit}
+                                    handleClickEditorEdit={() => {
                                         this.props.handleClickEditorEdit(EntryID);
-                                    }}>Editor </span>
-                                    {Edited !== 0 && <span onClick={() => {
-                                        // Close any open post history first, then open the requested one.
-                                        this.closeViewEdit();
-                                        this.viewEdit(EntryID);
-                                    }}>View edit </span>}
-                                    <span onClick={() => this.props.postDelete(EntryID)}>Delete</span>
-                                </p>
+                                    }}
+                                    Edited={Edited}
+                                    viewEdit={() => this.viewEdit(EntryID)}
+                                    postDelete={() => this.props.postDelete(EntryID)}
+                                />
                             </div>
                             <p>{Content}</p>
                             {this.state.history === EntryID && (
