@@ -6,23 +6,22 @@ class Hamburger extends React.Component {
         this.state = {
             active: false
         }
-        this.handleClose = this.handleClose.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
     }
-    handleToggle() {
-        this.setState({active: !this.state.active});
+    handleClickOpen() {
+        this.setState({active: true});
+        document.addEventListener("click", this.handleClickClose);
     }
-    handleClose() {
-            this.handleToggle();
-            document.removeEventListener("click", this.handleClose);
+    handleClickClose() {
+        this.setState({active: false});
+        document.removeEventListener("click", this.handleClickClose);
     }
     render() {
         return (<div>
-            <button onClick={() => {
-                this.handleToggle();
-                document.addEventListener("click", this.handleClose);
-            }}>🍔</button>
+            <button onClick={this.handleClickOpen}>🍔</button>
 
-            {this.state.active && <div onClick={event => event.stopPropagation()}>
+            {this.state.active && <div>
                 <button onClick={() => {
                     if (this.props.isOpeningHistory) {
                         this.props.closeViewEdit();
