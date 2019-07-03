@@ -121,7 +121,8 @@ class Content extends React.Component {
         this.handleClickEditor("add");
     }
     handleClickEditorEdit(id) {
-        this.handleClickEditor("edit", id, this.state.posts.filter(post => post.EntryID === id)[0].Content);
+        let post = this.state.posts.find(post => post.EntryID === id);
+        this.handleClickEditor("edit", id, post.Content);
     }
     componentDidMount() {
         if (this.props.status === "login") {
