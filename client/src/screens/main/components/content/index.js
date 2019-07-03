@@ -105,7 +105,9 @@ class Content extends React.Component {
         }
     }
     view() {
-        fetch(`/entries/${this.state.posts.length}`).then(res => res.json()).then(posts => {
+        fetch(`/entries/${this.state.posts.length}`)
+        .then(res => res.json())
+        .then(posts => {
             this.setState({
                 posts: this.state.posts.concat(posts)
             });
@@ -152,10 +154,36 @@ class Content extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Stack posts={this.state.posts} edit={content => this.edit(content)} postDelete={id => this.postDelete(id)} handleClickEditorEdit={id => this.handleClickEditorEdit(id)} />
-                {this.state.editor[0] && <Editor editor={this.state.editor} handleClickEditorClose={() => this.handleClickEditorClose()} add={content => this.add(content)} edit={content => this.edit(content)} />}
-                <div onClick={this.handleClickEditorAdd}>Add</div>
-                {this.props.status === "login" && <ViewButton view={() => this.view()} />}
+                <Stack
+                    posts={this.state.posts}
+                    edit={content => this.edit(content)}
+                    postDelete={id => this.postDelete(id)}
+                    handleClickEditorEdit={id => this.handleClickEditorEdit(id)}
+                />
+
+                {this.state.editor[0] && (
+                    <Editor
+                        editor={this.state.editor}
+                        handleClickEditorClose={this.handleClickEditorClose}
+                        add={content => this.add(content)}
+                        edit={content => this.edit(content)}
+                    />
+                )}
+
+                {this.props.status === "login" && (
+                    <ViewButton view={() => this.view()} />
+                )}
+
+                <div>
+                    <button onClick={this.handleClickEditorAdd}>Add</button>
+                    <button onClick={() => {
+                        window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: "smooth"
+                        });
+                    }}>Up</button>
+                </div>
             </React.Fragment>
         );
     }
