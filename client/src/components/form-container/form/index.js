@@ -33,18 +33,19 @@ class Form extends React.Component {
                     ></input>
                 </label>
                 <Button
-                    className="signupButton"
-                    content="Sign Up"
-                    onClick={event => {
-                        event.preventDefault();
-                        this.props.handleClickSignup(this.state.username, this.state.password);
-                    }}/>
-                <Button
                     className="loginButton"
                     content="Log In"
                     onClick={event => {
                         event.preventDefault();
                         this.props.handleClickLogin(this.state.username, this.state.password);
+                    }}
+                />
+                <Button
+                    className="signupButton"
+                    content="Sign Up"
+                    onClick={event => {
+                        event.preventDefault();
+                        this.props.handleClickSignup(this.state.username, this.state.password);
                     }}
                 />
             </form>

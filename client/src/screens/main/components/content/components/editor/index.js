@@ -25,17 +25,19 @@ class Editor extends React.Component {
     render() {
         return (
             <FloatBox handleClose={this.props.handleClickEditorClose}>
-                <label htmlFor="Text area">Text area</label>
-                <input
-                    name="Text area"
-                    value={this.state.content}
-                    onChange={this.handleChange}
-                    autoFocus
-                />
+                <form>
+                    <label htmlFor="Text area">Text area</label>
+                    <input
+                        name="Text area"
+                        value={this.state.content}
+                        onChange={this.handleChange}
+                        autoFocus
+                    />
 
-                {this.props.editor[0] === "add" ?
-                <button onClick={this.handleAdd}>Add</button> :
-                <button onClick={this.handleEdit}>Edit</button>}
+                    {this.props.editor[0] === "add" ?
+                    <button onClick={this.handleAdd}>Add</button> :
+                    <button onClick={this.handleEdit}>Edit</button>}
+                </form>
             </FloatBox>
         );
     }
