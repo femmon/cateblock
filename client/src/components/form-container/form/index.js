@@ -14,42 +14,42 @@ class Form extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
     render() {
-        return (
-            <form>
-                <label>Username
-                    <input
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                        autoFocus
-                    ></input>
-                </label>
-                <label>Password
-                    <input
-                        name="password"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    ></input>
-                </label>
-                <Button
-                    className="loginButton"
-                    content="Log In"
-                    onClick={event => {
-                        event.preventDefault();
-                        this.props.handleClickLogin(this.state.username, this.state.password);
-                    }}
+        return (<form>
+            <label>Username
+                <input
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    autoFocus
                 />
-                <Button
-                    className="signupButton"
-                    content="Sign Up"
-                    onClick={event => {
-                        event.preventDefault();
-                        this.props.handleClickSignup(this.state.username, this.state.password);
-                    }}
+            </label>
+            <label>Password
+                <input
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
                 />
-            </form>
-        );
+            </label>
+            <Button
+                className="loginButton"
+                content="Log In"
+                onClick={event => {
+                    // Prevent from reload
+                    event.preventDefault();
+                    this.props.handleClickLogin(this.state.username, this.state.password);
+                }}
+            />
+            <Button
+                className="signupButton"
+                content="Sign Up"
+                onClick={event => {
+                    // Prevent from reload
+                    event.preventDefault();
+                    this.props.handleClickSignup(this.state.username, this.state.password);
+                }}
+            />
+        </form>);
     }
 }
 
