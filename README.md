@@ -1,19 +1,20 @@
 # CatBlock Documentation
 
-## Dependencies:
+## NPM Dependencies:
 
-### Frontend:
+### Dependencies:
+
+#### Frontend:
 * react, react-dom
 
-### Backend:
+#### Backend:
 * express:
   * express-session:
     * connect-redis
   * helmet
 * mysql
 
-## Dev-Dependencies:
-
+### Dev-Dependencies:
 * eslint:
   * eslint-config-react-app:
     * @typescript-eslint/eslint-plugin
@@ -37,3 +38,10 @@
   * file-loader
   * html-loader:
     * html-webpack-plugin
+
+## Other Dependencies:
+* Bash environment
+* Heroku-cli - version 7.26.2
+* (Optional) Ngrok - version 2.3.30:
+  * Tunnel for fast testing on mobile
+  * Run with `./ngrok http -host-header="localhost:80" 80`
