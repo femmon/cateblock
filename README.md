@@ -5,6 +5,7 @@
 ### Dependencies:
 
 #### Frontend:
+* normalize.css
 * react, react-dom
 
 #### Backend:

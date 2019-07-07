@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Home from "./screens/home";
 import Main from "./screens/main";
+import "normalize.css";
 import "./style.css";
 
 class App extends React.Component {
