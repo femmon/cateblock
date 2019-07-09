@@ -6,7 +6,8 @@
 
 #### Frontend:
 * normalize.css
-* react, react-dom
+* react, react-dom:
+  * styled-components
 
 #### Backend:
 * express:
@@ -34,6 +35,7 @@
     * @babel/core
     * @babel/preset-env
     * @babel/preset-react
+    * babel-plugin-styled-components
   * clean-webpack-plugin
   * css-loader, style-loader
   * file-loader
