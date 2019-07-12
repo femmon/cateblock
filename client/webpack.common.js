@@ -7,14 +7,28 @@ module.exports = {
     output: {
         filename: "script.js",
         path: path.resolve(__dirname, "dist"),
+        // Resources need to be reference relative to root like "catblo.ck/script.js".
+        // If publicPath = "", then when the script is run from "catblo.ck/two/layers",
+        // the script will be loaded from "catblo.ck/two/script.js"
         publicPath: "/"
     },
+    // loaders run before plugins.
+    // Loaders work at individual file level during or before the bundle is generated.
+    // Plugins is more powerful. They work at bundle or chunk level, usually at
+    // the end of the bundle generation process.
     module: {
+        // Loaders are processed from from bottom to top inside rules: image ->
+        // css -> html -> js, and ftom right to left inside use of rules: css ->
+        // style loader
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: ["babel-loader"]
+                // Babel run order (as inside .babelrc):
+                // - Plugins run before Presets.
+                // - Plugin ordering is first to last.
+                // - Preset ordering is reversed (last to first).
             },
             {
                 test: /\.html$/,
