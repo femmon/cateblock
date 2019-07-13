@@ -17,7 +17,11 @@ class Main extends React.Component {
     }
     render() {
         return (<React.Fragment>
-            <header>
+            <header css={`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            `}>
                 <Logo />
 
                 {this.props.status === "try" && (

@@ -5,7 +5,7 @@ import FormContainer from "../../components/form-container";
 
 function Home(props) {
     return (<React.Fragment>
-        <header>
+        <header css={`text-align: center`}>
             <Logo />
             <h2>What good thing happened today?</h2>
         </header>
