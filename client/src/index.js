@@ -4,6 +4,8 @@ import Home from "./screens/home";
 import Main from "./screens/main";
 import "normalize.css";
 import "./style.css";
+import {ThemeProvider} from "styled-components";
+import theme from "./theme"
 import GlobalStyle from "./global-style";
 
 class App extends React.Component {
@@ -65,10 +67,14 @@ class App extends React.Component {
             default:
                 throw new Error("Not supported status");
         }
-        return (<React.Fragment>
-            <GlobalStyle />
-            {Screen}
-        </React.Fragment>);
+        return (
+            // ThemeProvider can only have 1 child and return that one child.
+            // More on this: https://github.com/styled-components/styled-components/issues/1325
+            <ThemeProvider theme={theme}><React.Fragment>
+                <GlobalStyle />
+                {Screen}
+            </React.Fragment></ThemeProvider>
+        );
     }
 }
 
