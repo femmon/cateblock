@@ -23,6 +23,7 @@ class Form extends React.Component {
                     autoFocus
                 />
             </label>
+
             <label>Password
                 <input
                     name="password"
@@ -31,24 +32,22 @@ class Form extends React.Component {
                     onChange={this.handleChange}
                 />
             </label>
+
             <Button
-                className="loginButton"
-                content="Log In"
                 onClick={event => {
                     // Prevent from reload
                     event.preventDefault();
                     this.props.handleClickLogin(this.state.username, this.state.password);
                 }}
-            />
+            >Log In</Button>
+
             <Button
-                className="signupButton"
-                content="Sign Up"
                 onClick={event => {
                     // Prevent from reload
                     event.preventDefault();
                     this.props.handleClickSignup(this.state.username, this.state.password);
                 }}
-            />
+            >Sign Up</Button>
         </form>);
     }
 }

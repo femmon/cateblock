@@ -36,10 +36,8 @@ class Main extends React.Component {
                     />
 
                     <Button
-                        className="logoutButton"
-                        content="Log Out"
                         onClick={() => this.handleClick("session")}
-                    />
+                    >Log Out</Button>
                 </React.Fragment>}
             </header>
 

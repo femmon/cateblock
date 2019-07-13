@@ -14,10 +14,8 @@ function Home(props) {
             <main>
                 <div>
                     <Button
-                        className="tryButton"
-                        content="Write it down!"
                         onClick={() => props.handleStateTry()}
-                    />
+                    >Write it down!</Button>
                 </div>
 
                 <div>

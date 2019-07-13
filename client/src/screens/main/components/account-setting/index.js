@@ -20,16 +20,13 @@ class AccountSetting extends React.Component {
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
                 <p>Make an offline copy</p>
                 <Button
-                    className="downloadButton"
-                    content="Download"
                     onClick={() => alert("Under construction")}
-                />
+                >Download</Button>
+
                 <p>Delete account</p>
                 <Button
-                    className="deleteAccButton"
-                    content="Delete"
                     onClick={this.props.handleDeleteAccount}
-                />
+                >Delete</Button>
             </FloatBox>}
         </React.Fragment>);
     }

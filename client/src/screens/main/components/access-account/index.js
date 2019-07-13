@@ -17,10 +17,8 @@ class AccessAccount extends React.Component {
     render() {
         return (<React.Fragment>
             <Button
-                className=""
-                content="Log in/Sign up"
                 onClick={this.handleToggle}
-            />
+            >Log in/Sign up</Button>
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
                 <FormContainer
