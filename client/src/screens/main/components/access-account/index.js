@@ -18,6 +18,7 @@ class AccessAccount extends React.Component {
         return (<React.Fragment>
             <Button
                 onClick={this.handleToggle}
+                emphasis
             >Log in/Sign up</Button>
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>

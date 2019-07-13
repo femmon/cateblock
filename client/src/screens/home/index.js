@@ -15,6 +15,7 @@ function Home(props) {
                 <div>
                     <Button
                         onClick={() => props.handleStateTry()}
+                        emphasis
                     >Write it down!</Button>
                 </div>
 
