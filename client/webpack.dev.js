@@ -7,6 +7,7 @@ module.exports = Object.assign({
         proxy: {
             "/": "http://localhost:3000"
         },
-        port: 80
+        // Use port >= 1024 so Linux doesn't require root
+        port: 8080
     }
 }, common);

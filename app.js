@@ -4,6 +4,7 @@ const session = require("./server/session");
 const accountsRouter = require("./server/routes/accounts");
 const entriesRouter = require("./server/routes/entries");
 const path = require("path");
+// Use port >= 1024 so Linux doesn't require root
 const PORT = process.env.PORT || 3000
 
 const app = express();

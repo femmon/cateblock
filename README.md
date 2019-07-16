@@ -48,4 +48,4 @@
 * Heroku-cli - version 7.26.2
 * (Optional) Ngrok - version 2.3.30:
   * Tunnel for fast testing on mobile
-  * Run with `./ngrok http -host-header="localhost:80" 80`
+  * Run with `./ngrok http -host-header="localhost:8080" 8080`
