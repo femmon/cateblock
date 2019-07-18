@@ -14,24 +14,33 @@ class Form extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
     render() {
-        return (<form>
-            <label>Username
-                <input
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                    autoFocus
-                />
-            </label>
+        return (<form css={`
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        `}>
+            <label
+                css={`grid-column: span 2;`}
+                htmlFor="username"
+            >Username</label>
+            <input
+                css={`grid-column: span 2;`}
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                autoFocus
+            />
 
-            <label>Password
-                <input
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                />
-            </label>
+            <label
+                css={`grid-column: span 2;`}
+                htmlFor="password"
+            >Password</label>
+            <input
+                css={`grid-column: span 2;`}
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+            />
 
             <Button
                 onClick={event => {
