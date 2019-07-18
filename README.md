@@ -9,4 +9,6 @@
 
 ## [Dependency Relationships](docs/dependency-relationships.md)
 
+## [Project Structure](docs/project-structure.md)
+
 ## [Available Scripts](docs/available-scripts.md)
