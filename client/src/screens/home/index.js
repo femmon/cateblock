@@ -15,7 +15,7 @@ const Header = styled.header`
 
 const MainContainer = styled.main`
     display: flex;
-    justify-content: center;
+    align-items: center;
 
     overflow-x: hidden;
 `;
