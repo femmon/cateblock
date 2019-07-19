@@ -10,6 +10,7 @@
   * styled-components
 
 #### Backend:
+* cross-env
 * express:
   * express-session:
     * connect-redis
@@ -17,7 +18,6 @@
 * mysql
 
 ### Dev-Dependencies:
-* cross-env
 * eslint:
   * eslint-config-react-app:
     * @typescript-eslint/eslint-plugin
