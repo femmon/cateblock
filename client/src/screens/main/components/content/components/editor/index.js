@@ -27,7 +27,7 @@ class Editor extends React.Component {
             <FloatBox handleClose={this.props.handleClickEditorClose}>
                 <form>
                     <label htmlFor="Text area">Text area</label>
-                    <input
+                    <textarea
                         name="Text area"
                         value={this.state.content}
                         onChange={this.handleChange}

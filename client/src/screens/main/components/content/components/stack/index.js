@@ -45,7 +45,7 @@ class Stack extends React.Component {
                         />
                     </div>
 
-                    <p>{Content}</p>
+                    <p css={`white-space: pre-wrap`}>{Content}</p>
 
                     {this.state.history === EntryID && (
                         <div style={{border: "5px solid black"}}>
@@ -56,7 +56,7 @@ class Stack extends React.Component {
                                     <div key={index} style={{border: "5px solid black"}}>
                                         <p>{toLocalePostTime(PostTime)}</p>
 
-                                        <p>{Content}</p>
+                                        <p css={`white-space: pre-wrap`}>{Content}</p>
                                     </div>
                                 )
                             })}
