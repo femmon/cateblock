@@ -1,5 +1,6 @@
 import React from "react";
-import FloatBox from "../../../../../../components/float-box"
+import Button from "../../../../../../components/button";
+import FloatBox from "../../../../../../components/float-box";
 
 class Editor extends React.Component {
     constructor(props) {
@@ -35,8 +36,8 @@ class Editor extends React.Component {
                     />
 
                     {this.props.editor[0] === "add" ?
-                    <button onClick={this.handleAdd}>Add</button> :
-                    <button onClick={this.handleEdit}>Edit</button>}
+                    <Button onClick={this.handleAdd}>Add</Button> :
+                    <Button onClick={this.handleEdit}>Edit</Button>}
                 </form>
             </FloatBox>
         );
