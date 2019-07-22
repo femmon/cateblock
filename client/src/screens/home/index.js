@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "../../components/logo";
 import Button from "../../components/button";
+import Cloud from "../../components/cloud";
 import FormContainer from "../../components/form-container";
 
 let transitionTime = "1s";
@@ -80,6 +81,8 @@ function Home(props) {
                 </RightBox>
             </MainContainer>
         )}
+
+        <Cloud />
     </React.Fragment>);
 }
 

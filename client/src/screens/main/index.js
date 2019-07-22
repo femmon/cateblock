@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../../components/logo";
 import Button from "../../components/button";
+import Cloud from "../../components/cloud";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
@@ -44,6 +45,8 @@ class Main extends React.Component {
             <main>
                 <Content status={this.props.status} />
             </main>
+
+            <Cloud />
         </React.Fragment>);
     }
 }
