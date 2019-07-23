@@ -19,8 +19,7 @@ Run linter.<br>
 Need to be run manually before commit.
 
 ### `npm run local`
-Chain `npm local-env`, `npm local-hot-backend`, `npm local-hot-frontend`. Serve client file from http://localhost:8080. Server automatically reloads on modification.<br>
-Server-side only works partially. Webpack-dev-server serves compiled front end from memory, and will proxy API request to backend. Hence, we can't test backend routing.
+Chain `npm local-env`, `npm local-hot-backend`, `npm local-hot-frontend`. Server is run at http://localhost:3000. Server automatically reloads on modification.
 
 ### `npm run local-build`
 Build the app for production to `/client/dist` folder.
@@ -32,7 +31,8 @@ Load database credential into `.env`.
 Server is run at http://localhost:3000. Automatically rerun on modification.
 
 ### `npm run local-hot-frontend`
-Serve client file from http://localhost:8080. Automatically recompile and reload browser on modification.
+Serve client file from http://localhost:8080. Automatically recompile and reload browser on modification.<br>
+Quite limited without a backend.
 
 ### `npm start`
 This script assumes to be fed database credentials as environment variables before running.<br>

@@ -29,6 +29,9 @@ module.exports = {
                 // - Plugins run before Presets.
                 // - Plugin ordering is first to last.
                 // - Preset ordering is reversed (last to first).
+
+                // Babel considers files to be ES module by default: `"sourceType":
+                // "module"` and automatically inserts `"use strict";`.
             },
             {
                 test: /\.html$/,
