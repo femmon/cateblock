@@ -19,7 +19,7 @@ Run linter.<br>
 Need to be run manually before commit.
 
 ### `npm run local`
-Chain `npm local-env`, `npm local-hot-backend`, `npm local-hot-frontend`. Server is run at http://localhost:3000. Server automatically reloads on modification.
+Chain `npm local-hot-backend`, `npm local-hot-frontend`. Server is run at http://localhost:3000. Server automatically reloads on modification.
 
 ### `npm run local-build`
 Build the app for production to `/client/dist` folder.

@@ -9,7 +9,7 @@
   "scripts": {
     "heroku-postbuild": "cd client && webpack --config webpack.prod.js",
     "lint": "eslint --ignore-path .gitignore ./",
-    "local": "npm-run-all local-env -p local-hot-backend local-hot-frontend",
+    "local": "npm-run-all -p local-hot-backend local-hot-frontend",
     "local-build": "cd client && webpack --config webpack.dev.js",
     "local-env": "cd scripts && bash local-env.sh",
     "local-hot-backend": "nodemon -r dotenv/config app --ignore client",
