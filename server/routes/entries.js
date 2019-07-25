@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs");
+const archiver = require("archiver");
 const pool = require("../db");
 
 const router = express.Router();
@@ -77,18 +79,64 @@ router.put("/", async (req, res) => {
 });
 
 // Download post
-// router.get("/all", async (req, res) => {
-//     try {
-//         if (req.session.username) {
-//             let results = await pool.query("SELECT EntryID, Content, PostTime, Edited FROM Entries WHERE Username = ? ORDER BY EntryID DESC;", [req.session.username]);
-//             res.status(200).download("path", "file name (optional)");
-//         } else {
-//             res.status(400).send("Need to log in first");
-//         }
-//     } catch (err) {
-//         throw err;
-//     }
-// });
+router.get("/all", async (req, res) => {
+    try {
+        if (req.session.username) {
+            // Prepare content to send
+            let [results, templateContent] = await Promise.all([
+                pool.query("SELECT Content, PostTime FROM Entries WHERE Username = ? ORDER BY EntryID DESC;", [req.session.username]),
+                // fs.promises.readFile("path-to-template.html", {encoding: "utf-8"})
+            ]);
+            results = JSON.stringify(results, undefined, 2);
+
+            let rawContent = results.replace(/\\n/g, "\n");
+
+            // // identifier is a placeholder for the posts in the template
+            // let identifier = "placeholder";
+            // let position = templateContent.indexOf(identifier);
+            // // Replace "\n" in the output file with visual newline
+            // templateContent = templateContent.slice(0, position) +
+            //                   results +
+            //                   templateContent.slice(position + identifier.length);
+
+            let outputPath = `${req.session.username}-posts.zip`;
+
+            // Wrapped in promise so that we don't send the zip before it finishs
+            await new Promise(res => {
+                // Set up output
+                let output = fs.createWriteStream(outputPath);
+                output.on("close", res);
+
+                // Set up archiver
+                let archive = archiver("zip");
+                archive.on("error", err => {
+                    throw err;
+                });
+                archive.pipe(output);
+
+                archive.append(rawContent, {name: "raw-text.txt"});
+                // archive.append(templateContent, {name: "web-viewer.html"});
+                archive.finalize();
+            });
+
+            // This will end the response: https://expressjs.com/en/guide/routing.html#response-methods
+            res.status(200).download(
+                outputPath,
+                outputPath,
+                err => {
+                    if (err) throw err;
+                    fs.unlink(outputPath, (err) => {
+                        if (err) throw err;
+                    });
+                }
+            );
+        } else {
+            res.status(400).send("Need to log in first");
+        }
+    } catch (err) {
+        throw err;
+    }
+});
 
 // View history
 router.get("/history/:entryID(\\d+)", async (req, res) => {

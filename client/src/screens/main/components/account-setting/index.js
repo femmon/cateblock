@@ -9,9 +9,28 @@ class AccountSetting extends React.Component {
             active: false
         }
         this.handleToggle = this.handleToggle.bind(this);
+        this.download = this.download.bind(this);
     }
     handleToggle() {
         this.setState({active: !this.state.active});
+    }
+    download() {
+        fetch("/entries/all")
+        .then(res => res.blob())
+        .then(blob => {
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement("a");
+            a.href = url;
+            a.download = "posts.zip";
+            //Need to append to the DOM, otherwise it will not work in Firefox
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            a.remove();
+
+            this.handleToggle()
+        });
+
     }
     render() {
         return (<React.Fragment>
@@ -19,9 +38,7 @@ class AccountSetting extends React.Component {
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
                 <p>Make an offline copy</p>
-                <Button
-                    onClick={() => alert("Under construction")}
-                >Download</Button>
+                <Button onClick={this.download}>Download</Button>
 
                 <p>Delete account</p>
                 <Button
