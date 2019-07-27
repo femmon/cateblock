@@ -39,6 +39,7 @@
     * @babel/preset-react
     * babel-plugin-styled-components
   * clean-webpack-plugin
+  * compression-webpack-plugin
   * css-loader, style-loader
   * file-loader
   * html-loader:

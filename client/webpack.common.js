@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
@@ -56,6 +57,13 @@ module.exports = {
             template: "./src/index.html",
             filename: "./index.html",
             favicon: path.resolve(__dirname, "src/favicon.ico")
+        }),
+        new CompressionPlugin({
+            filename(info) {
+                // Change name to serve from Express more easily
+                let dotPos = info.path.lastIndexOf(".");
+                return info.path.slice(0, dotPos) + ".gz" + info.path.slice(dotPos);
+            }
         })
     ]
 };
