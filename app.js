@@ -3,9 +3,9 @@ const helmet = require("helmet");
 const session = require("./server/session");
 const accountsRouter = require("./server/routes/accounts");
 const entriesRouter = require("./server/routes/entries");
-const path = require("path");
+const staticRouter = require("./server/static");
 // Use port >= 1024 so Linux doesn't require root
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(helmet());
@@ -22,10 +22,10 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 app.use("/accounts", accountsRouter);
 app.use("/entries", entriesRouter);
-app.use(express.static(path.join(__dirname, "client/dist")))
-app.get("*", (req, res) => {
-    res.status(404).sendFile(path.join(__dirname, "client/dist/index.html"));
-})
+
+app.use(staticRouter);
+
 app.listen(PORT);
