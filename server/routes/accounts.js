@@ -59,9 +59,13 @@ router.delete("/session", async (req, res) => {
 // Is logged in?
 router.get("/session", (req, res) => {
     if (req.session.username) {
-        res.status(200).send("In");
+        res.status(200).send({
+            loggedIn: true,
+            username: req.session.username
+        });
     } else {
-        res.status(200).send("Out");
+        // Implicit {loggedIn: false, username: null}
+        res.status(200).send({});
     }
 });
 

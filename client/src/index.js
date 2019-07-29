@@ -16,8 +16,10 @@ class App extends React.Component {
         };
     }
     checkSession() {
-        fetch("/accounts/session").then(res => res.text()).then(text => {
-            if (text === "In") {
+        fetch("/accounts/session")
+        .then(res => res.json())
+        .then(res => {
+            if (res.loggedIn) {
                 this.setState({status: "login"});
             } else {
                 this.setState({status: "logout"});
