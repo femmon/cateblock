@@ -51,5 +51,5 @@
 
 ## Other Dependencies:
 * Bash environment
-* Heroku-CLI (current version is 7.26.2)
+* Heroku-CLI (current version is 7.27.1)
 * (Optional) ngrok (current version is 2.3.34)
