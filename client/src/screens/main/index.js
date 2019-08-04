@@ -27,13 +27,16 @@ class Main extends React.Component {
 
                 {this.props.status === "try" && (
                     <AccessAccount
-                        handleStateLogin={this.props.handleStateLogin}
+                        handleStateLogin={username => {
+                            this.props.handleStateLogin(username);
+                        }}
                     />
                 )}
 
                 {this.props.status === "login" && <React.Fragment>
                     <AccountSetting
                         handleDeleteAccount={() => this.handleClick("")}
+                        username={this.props.username}
                     />
 
                     <Button

@@ -74,8 +74,9 @@ function Home(props) {
 
                 <RightBox>
                     <FormContainer
-                        handleStateLogin={() => {
-                            changeScreenAnimation().then(props.handleStateLogin);
+                        handleStateLogin={username => {
+                            changeScreenAnimation()
+                            .then(() => props.handleStateLogin(username));
                         }}
                     />
                 </RightBox>

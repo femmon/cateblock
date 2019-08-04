@@ -10,7 +10,7 @@ function FormContainer(props) {
                 body: JSON.stringify({username, password})
             }).then(res => {
                 if (res.status === 200) {
-                    props.handleStateLogin();
+                    props.handleStateLogin(username);
                 }
             }).catch(err => {throw err});
         }

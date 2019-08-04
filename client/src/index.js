@@ -12,7 +12,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: null
+            status: null,
+            username: null
         };
     }
     checkSession() {
@@ -20,7 +21,10 @@ class App extends React.Component {
         .then(res => res.json())
         .then(res => {
             if (res.loggedIn) {
-                this.setState({status: "login"});
+                this.setState({
+                    status: "login",
+                    username: res.username
+                });
             } else {
                 this.setState({status: "logout"});
             }
@@ -52,7 +56,10 @@ class App extends React.Component {
             case "logout":
                 Screen = <Home
                     status={this.state.status}
-                    handleStateLogin={() => this.setState({status: "login"})}
+                    handleStateLogin={username => this.setState({
+                        status: "login",
+                        username
+                    })}
                     handleStateTry={() => this.setState({status: "try"})}
                 />;
                 break;
@@ -61,9 +68,16 @@ class App extends React.Component {
             case "try":
                 Screen = <Main
                     status={this.state.status}
-                    handleStateLogin={() => this.setState({status: "login"})}
-                    handleStateLogout={() => this.setState({status: "logout"})}
-                />;
+                    username={this.state.username}
+                    handleStateLogin={username => this.setState({
+                        status: "login",
+                        username
+                    })}
+                    handleStateLogout={() => this.setState({
+                        status: "logout",
+                        username: null
+                    })}
+                />; 
                 break;
 
             default:

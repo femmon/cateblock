@@ -23,7 +23,9 @@ class AccessAccount extends React.Component {
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
                 <FormContainer
-                    handleStateLogin={this.props.handleStateLogin}
+                    handleStateLogin={username => {
+                        this.props.handleStateLogin(username);
+                    }}
                 />
             </FloatBox>}
         </React.Fragment>);

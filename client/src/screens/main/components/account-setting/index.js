@@ -37,6 +37,11 @@ class AccountSetting extends React.Component {
             <span onClick={this.handleToggle}>👤</span>
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
+                {this.props.username && <React.Fragment>
+                    <p>Hi {this.props.username}!</p>
+                    <hr />
+                </React.Fragment>}
+
                 <p>Make an offline copy</p>
                 <Button onClick={this.download}>Download</Button>
 
