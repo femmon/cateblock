@@ -12,3 +12,5 @@
 ## [Project Structure](docs/project-structure.md)
 
 ## [Available Scripts](docs/available-scripts.md)
+
+## [Commit Message Convention](docs/commit-message-convention.md)
