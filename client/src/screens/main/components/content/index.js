@@ -59,13 +59,16 @@ class Content extends React.Component {
 
     edit(content) {
         return new Promise((resolve, reject) => {
+            // Overide the old one if the status is "try"
             if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
                     if (post.EntryID !== this.state.editor[1]) return post;
 
-                    post.Content = content;
-                    post.PostTime = new Date().toISOString();
-                    return post;
+                    return {
+                        ...post,
+                        Content: content,
+                        PostTime: new Date().toISOString()
+                    };
                 });
                 this.setState({posts}, resolve);
             } else {
@@ -80,11 +83,12 @@ class Content extends React.Component {
                     let posts = this.state.posts.map(post => {
                         if (post.EntryID !== this.state.editor[1]) return post;
 
-                        // TODO: map is shallow, this still mutate the state.
-                        post.Content = content;
-                        post.PostTime = new Date().toISOString();
-                        post.Edited = 1;
-                        return post;
+                        return {
+                            ...post,
+                            Content: content,
+                            PostTime: new Date().toISOString(),
+                            Edited: 1
+                        };
                     });
                     this.setState({posts}, resolve);
                 }).catch(err => reject(err));
