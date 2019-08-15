@@ -14,6 +14,7 @@ The Tag is one of the following:
 `Fix` - for a bug fix.<br>
 `New` - for implementing a new feature.<br>
 `Refactor` - for refactoring production code, eg. renaming a variable.<br>
+`Style` - for formatting, missing semi colons, etc; no production code change.<br>
 `Test` - for adding missing tests, refactoring tests; no production code change.<br>
 `Upgrade` - for a dependency upgrade.<br>
 
