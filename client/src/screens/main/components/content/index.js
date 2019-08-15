@@ -132,24 +132,20 @@ class Content extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.status !== this.props.status) {
-            if (this.state.posts.length !== 0) {
-                let newPosts = this.state.posts.map(post => post.Content).reverse();
+        if (prevProps.status === this.props.status) return;
 
-                this.createEntries(newPosts).then(id => {
-                    let posts = JSON.parse(JSON.stringify(this.state.posts));
-                    posts.forEach((post, index) => {
-                        post.EntryID = Number(id) + this.state.posts.length - index - 1;
-                    });
+        if (this.state.posts.length === 0) return this.view();
 
-                    return posts;
-                })
-                .then(posts => this.setState({posts}, this.view))
-                .catch(err => {throw err;});
-            } else {
-                this.view()
-            }
-        }
+        let newPosts = this.state.posts.map(post => post.Content).reverse();
+
+        this.createEntries(newPosts).then(id => {
+            let posts = JSON.parse(JSON.stringify(this.state.posts));
+            posts.forEach((post, index) => {
+                post.EntryID = Number(id) + this.state.posts.length - index - 1;
+            });
+
+            this.setState({posts}, this.view);
+        }).catch(err => {throw err;});
     }
     render() {
         return (
