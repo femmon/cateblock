@@ -62,15 +62,24 @@ class Content extends React.Component {
             if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
                     if (post.EntryID !== this.state.editor[1]) return post;
+
                     post.Content = content;
                     post.PostTime = new Date().toISOString();
                     return post;
                 });
                 this.setState({posts}, resolve);
             } else {
-                fetch("/entries", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({content, entryID: this.state.editor[1]})}).then(res => {
+                fetch("/entries", {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        content,
+                        entryID: this.state.editor[1]
+                    })
+                }).then(res => {
                     let posts = this.state.posts.map(post => {
                         if (post.EntryID !== this.state.editor[1]) return post;
+
                         // TODO: map is shallow, this still mutate the state.
                         post.Content = content;
                         post.PostTime = new Date().toISOString();
@@ -84,7 +93,11 @@ class Content extends React.Component {
     }
     postDelete(id) {
         if (this.props.status === "login") {
-            fetch("/entries", {method: "DELETE", headers: {"Content-Type": "application/json"}, body: JSON.stringify({entryID: id})}).then(res => {
+            fetch("/entries", {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({entryID: id})
+            }).then(res => {
                 if (res && res.status === 200) {
                     let index = this.state.posts.findIndex(post => post.EntryID === id);
                     if (index !== -1) {
