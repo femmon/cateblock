@@ -1,11 +1,12 @@
 # CatBlock Documentation
 
 ## Setting Up:
-* Install Node.js (current version is 12.6.0).
+(Refer to [Dependency Relationships](docs/dependency-relationships.md) for the exact versions)
+* Install Node.js.
 * Run `npm install`.
-* Install [Heroku-CLI](https://devcenter.heroku.com/articles/heroku-cli) (current version is 7.26.2).
+* Install [Heroku-CLI](https://devcenter.heroku.com/articles/heroku-cli).
 * Install Bash Shell.
-* (Optional) Install [ngrok](https://ngrok.com/download) (current version is 2.3.30).
+* (Optional) Install [ngrok](https://ngrok.com/download).
 
 ## [Dependency Relationships](docs/dependency-relationships.md)
 

@@ -50,6 +50,7 @@
 * Redis (current version is 4.0.14)
 
 ## Other Dependencies:
+* Node.js (current version is 12.8.0)
 * Bash environment
 * Heroku-CLI (current version is 7.27.1)
 * (Optional) ngrok (current version is 2.3.34)
