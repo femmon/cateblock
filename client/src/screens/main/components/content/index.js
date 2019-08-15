@@ -144,8 +144,8 @@ class Content extends React.Component {
 
                     return posts;
                 })
-                .then(posts => this.setState({posts}))
-                .then(this.view).catch(err => {throw err;});
+                .then(posts => this.setState({posts}, this.view))
+                .catch(err => {throw err;});
             } else {
                 this.view()
             }
