@@ -137,9 +137,9 @@ class Content extends React.Component {
                 let newPosts = this.state.posts.map(post => post.Content).reverse();
 
                 this.createEntries(newPosts).then(id => {
-                    let posts = this.state.posts.map((post, index) => {
+                    let posts = JSON.parse(JSON.stringify(this.state.posts));
+                    posts.forEach((post, index) => {
                         post.EntryID = Number(id) + this.state.posts.length - index - 1;
-                        return post;
                     });
 
                     return posts;
