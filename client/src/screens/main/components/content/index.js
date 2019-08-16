@@ -59,6 +59,12 @@ class Content extends React.Component {
 
     edit(content) {
         return new Promise((resolve, reject) => {
+            // Check to see if user has made any changes
+            let editingPost = this.state.posts.find(post => {
+                return post.EntryID === this.state.editor[1]
+            });
+            if (editingPost.Content === content) return resolve();
+
             // Overide the old one if the status is "try"
             if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
