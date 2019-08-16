@@ -169,7 +169,6 @@ class Content extends React.Component {
             <React.Fragment>
                 <Stack
                     posts={this.state.posts}
-                    edit={content => this.edit(content)}
                     postDelete={id => this.postDelete(id)}
                     handleClickEditorEdit={id => this.handleClickEditorEdit(id)}
                 />
