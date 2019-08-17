@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../../../../../components/button";
 import FloatBox from "../../../../../../components/float-box";
+import PostText from "../post-text";
 
 class Editor extends React.Component {
     constructor(props) {
@@ -28,7 +29,8 @@ class Editor extends React.Component {
             <FloatBox handleClose={this.props.handleClickEditorClose}>
                 <form>
                     <label htmlFor="Text area">Text area</label>
-                    <textarea
+                    <PostText
+                        as="textarea"
                         name="Text area"
                         value={this.state.content}
                         onChange={this.handleChange}

@@ -1,5 +1,6 @@
 import React from "react";
 import Hamburger from "./components/hamburger";
+import PostText from "../post-text";
 
 class Stack extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class Stack extends React.Component {
                         />
                     </div>
 
-                    <pre>{Content}</pre>
+                    <PostText as="pre">{Content}</PostText>
 
                     {this.state.history === EntryID && (
                         <div style={{border: "5px solid black"}}>
@@ -56,7 +57,7 @@ class Stack extends React.Component {
                                     <div key={index} style={{border: "5px solid black"}}>
                                         <p>{toLocalePostTime(PostTime)}</p>
 
-                                        <pre>{Content}</pre>
+                                        <PostText as="pre">{Content}</PostText>
                                     </div>
                                 )
                             })}
