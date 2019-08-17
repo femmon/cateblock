@@ -172,7 +172,7 @@ class Content extends React.Component {
     }
     render() {
         return (
-            <React.Fragment>
+            <>
                 <Stack
                     posts={this.state.posts}
                     postDelete={id => this.postDelete(id)}
@@ -202,7 +202,7 @@ class Content extends React.Component {
                         });
                     }}>Up</button>
                 </div>
-            </React.Fragment>
+            </>
         );
     }
 }

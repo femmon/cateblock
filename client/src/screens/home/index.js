@@ -55,7 +55,7 @@ function Home(props) {
             setTimeout(res, Number(transitionTime.replace("s", "")) * 1000);
         });
     }
-    return (<React.Fragment>
+    return (<>
         <Header>
             <Logo />
             <h2>What good thing happened today?</h2>
@@ -84,7 +84,7 @@ function Home(props) {
         )}
 
         <Cloud />
-    </React.Fragment>);
+    </>);
 }
 
 export default Home;

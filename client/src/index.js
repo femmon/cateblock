@@ -86,10 +86,10 @@ class App extends React.Component {
         return (
             // ThemeProvider can only have 1 child and return that one child.
             // More on this: https://github.com/styled-components/styled-components/issues/1325
-            <ThemeProvider theme={theme}><React.Fragment>
+            <ThemeProvider theme={theme}><>
                 <GlobalStyle />
                 {Screen}
-            </React.Fragment></ThemeProvider>
+            </></ThemeProvider>
         );
     }
 }

@@ -17,7 +17,7 @@ class Main extends React.Component {
         }).catch(err => {throw err});
     }
     render() {
-        return (<React.Fragment>
+        return (<>
             <header css={`
                 display: flex;
                 justify-content: center;
@@ -33,7 +33,7 @@ class Main extends React.Component {
                     />
                 )}
 
-                {this.props.status === "login" && <React.Fragment>
+                {this.props.status === "login" && <>
                     <AccountSetting
                         handleDeleteAccount={() => this.handleClick("")}
                         username={this.props.username}
@@ -42,7 +42,7 @@ class Main extends React.Component {
                     <Button
                         onClick={() => this.handleClick("session")}
                     >Log Out</Button>
-                </React.Fragment>}
+                </>}
             </header>
 
             <main>
@@ -50,7 +50,7 @@ class Main extends React.Component {
             </main>
 
             <Cloud />
-        </React.Fragment>);
+        </>);
     }
 }
 

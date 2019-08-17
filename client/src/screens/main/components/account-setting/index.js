@@ -33,14 +33,14 @@ class AccountSetting extends React.Component {
 
     }
     render() {
-        return (<React.Fragment>
+        return (<>
             <span onClick={this.handleToggle}>👤</span>
 
             {this.state.active && <FloatBox handleClose={this.handleToggle}>
-                {this.props.username && <React.Fragment>
+                {this.props.username && <>
                     <p>Hi {this.props.username}!</p>
                     <hr />
-                </React.Fragment>}
+                </>}
 
                 <p>Make an offline copy</p>
                 <Button onClick={this.download}>Download</Button>
@@ -50,7 +50,7 @@ class AccountSetting extends React.Component {
                     onClick={this.props.handleDeleteAccount}
                 >Delete</Button>
             </FloatBox>}
-        </React.Fragment>);
+        </>);
     }
 }
 

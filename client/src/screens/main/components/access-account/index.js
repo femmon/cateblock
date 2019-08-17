@@ -15,7 +15,7 @@ class AccessAccount extends React.Component {
         this.setState({active: !this.state.active});
     }
     render() {
-        return (<React.Fragment>
+        return (<>
             <Button
                 onClick={this.handleToggle}
                 emphasis
@@ -28,7 +28,7 @@ class AccessAccount extends React.Component {
                     }}
                 />
             </FloatBox>}
-        </React.Fragment>);
+        </>);
     }
 }
 
