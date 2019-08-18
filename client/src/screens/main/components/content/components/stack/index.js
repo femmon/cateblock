@@ -46,7 +46,7 @@ class Stack extends React.Component {
                         />
                     </div>
 
-                    <PostText as="pre">{Content}</PostText>
+                    <PostText>{Content}</PostText>
 
                     {this.state.history === EntryID && (
                         <div style={{border: "5px solid black"}}>
@@ -57,7 +57,7 @@ class Stack extends React.Component {
                                     <div key={index} style={{border: "5px solid black"}}>
                                         <p>{toLocalePostTime(PostTime)}</p>
 
-                                        <PostText as="pre">{Content}</PostText>
+                                        <PostText>{Content}</PostText>
                                     </div>
                                 )
                             })}
