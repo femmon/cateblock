@@ -57,18 +57,18 @@ class Content extends React.Component {
         }).then(res => res.text());
     }
 
-    edit(content) {
+    edit(id, content) {
         return new Promise((resolve, reject) => {
             // Check to see if user has made any changes
             let editingPost = this.state.posts.find(post => {
-                return post.EntryID === this.state.editor[1]
+                return post.EntryID === id;
             });
             if (editingPost.Content === content) return resolve();
 
             // Overide the old one if the status is "try"
             if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
-                    if (post.EntryID !== this.state.editor[1]) return post;
+                    if (post.EntryID !== id) return post;
 
                     return {
                         ...post,
@@ -83,11 +83,11 @@ class Content extends React.Component {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         content,
-                        entryID: this.state.editor[1]
+                        entryID: id
                     })
                 }).then(res => {
                     let posts = this.state.posts.map(post => {
-                        if (post.EntryID !== this.state.editor[1]) return post;
+                        if (post.EntryID !== id) return post;
 
                         return {
                             ...post,
@@ -184,7 +184,7 @@ class Content extends React.Component {
                         editor={this.state.editor}
                         handleClickEditorClose={this.handleClickEditorClose}
                         add={content => this.add(content)}
-                        edit={content => this.edit(content)}
+                        edit={(id, content) => this.edit(id, content)}
                     />
                 )}
 

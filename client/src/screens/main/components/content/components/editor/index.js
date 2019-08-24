@@ -22,7 +22,8 @@ class Editor extends React.Component {
     }
     handleEdit(event) {
         event.preventDefault();
-        this.props.edit(this.state.content).then(() => this.props.handleClickEditorClose());
+        this.props.edit(this.props.editor[1], this.state.content)
+        .then(() => this.props.handleClickEditorClose());
     }
     render() {
         return (
