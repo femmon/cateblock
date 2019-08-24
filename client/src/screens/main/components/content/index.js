@@ -145,9 +145,8 @@ class Content extends React.Component {
     handleClickEditorAdd() {
         this.handleClickEditor("add");
     }
-    handleClickEditorEdit(id) {
-        let post = this.state.posts.find(post => post.EntryID === id);
-        this.handleClickEditor("edit", id, post.Content);
+    handleClickEditorEdit(id, content) {
+        this.handleClickEditor("edit", id, content);
     }
     componentDidMount() {
         if (this.props.status === "login") {
@@ -176,7 +175,7 @@ class Content extends React.Component {
                 <Stack
                     posts={this.state.posts}
                     postDelete={id => this.postDelete(id)}
-                    handleClickEditorEdit={id => this.handleClickEditorEdit(id)}
+                    handleClickEditorEdit={(id, content) => this.handleClickEditorEdit(id, content)}
                 />
 
                 {this.state.editor[0] && (

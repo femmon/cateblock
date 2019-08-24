@@ -38,7 +38,7 @@ class Stack extends React.Component {
                             isOpeningHistory={this.state.history === EntryID}
                             closeViewEdit={this.closeViewEdit}
                             handleClickEditorEdit={() => {
-                                this.props.handleClickEditorEdit(EntryID);
+                                this.props.handleClickEditorEdit(EntryID, Content);
                             }}
                             Edited={Edited}
                             viewEdit={() => this.viewEdit(EntryID)}
