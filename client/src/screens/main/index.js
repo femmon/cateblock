@@ -5,6 +5,7 @@ import Cloud from "../../components/cloud";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
+import {ContentProvider} from "./components/content-context";
 
 class Main extends React.Component {
     handleClick(path) {
@@ -46,7 +47,9 @@ class Main extends React.Component {
             </header>
 
             <main>
-                <Content status={this.props.status} />
+                <ContentProvider status={this.props.status}>
+                    <Content status={this.props.status}/>
+                </ContentProvider>
             </main>
 
             <Cloud />
