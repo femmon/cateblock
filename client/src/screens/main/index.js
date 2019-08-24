@@ -6,6 +6,7 @@ import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
 import {ContentProvider} from "./components/content-context";
+import {EditorProvider} from "./components/editor-context";
 
 class Main extends React.Component {
     handleClick(path) {
@@ -48,7 +49,9 @@ class Main extends React.Component {
 
             <main>
                 <ContentProvider status={this.props.status}>
-                    <Content status={this.props.status}/>
+                    <EditorProvider status={this.props.status}>
+                        <Content status={this.props.status}/>
+                    </EditorProvider>
                 </ContentProvider>
             </main>
 
