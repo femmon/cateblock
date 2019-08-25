@@ -4,9 +4,9 @@ import Button from "../../components/button";
 import Cloud from "../../components/cloud";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
-import Content from "./components/content";
 import Stack from "./components/stack";
 import ViewButton from "./components/view-button";
+import SideButtons from "./components/side-buttons";
 import {ContentProvider} from "./components/content-context";
 import {EditorProvider} from "./components/editor-context";
 
@@ -58,7 +58,7 @@ class Main extends React.Component {
                             <ViewButton />
                         )}
 
-                        <Content status={this.props.status}/>
+                        <SideButtons />
                     </EditorProvider>
                 </ContentProvider>
             </main>
