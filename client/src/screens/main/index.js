@@ -6,6 +6,7 @@ import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
 import Stack from "./components/stack";
+import ViewButton from "./components/view-button";
 import {ContentProvider} from "./components/content-context";
 import {EditorProvider} from "./components/editor-context";
 
@@ -52,6 +53,11 @@ class Main extends React.Component {
                 <ContentProvider status={this.props.status}>
                     <EditorProvider status={this.props.status}>
                         <Stack />
+
+                        {this.props.status === "login" && (
+                            <ViewButton />
+                        )}
+
                         <Content status={this.props.status}/>
                     </EditorProvider>
                 </ContentProvider>

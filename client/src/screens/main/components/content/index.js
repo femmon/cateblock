@@ -1,6 +1,5 @@
 import React from "react";
 import Editor from "./components/editor";
-import ViewButton from "./components/view-button";
 
 class Content extends React.Component {
     constructor(props) {
@@ -178,10 +177,6 @@ class Content extends React.Component {
                         add={content => this.add(content)}
                         edit={(id, content) => this.edit(id, content)}
                     />
-                )}
-
-                {this.props.status === "login" && (
-                    <ViewButton view={() => this.view()} />
                 )}
 
                 <div>
