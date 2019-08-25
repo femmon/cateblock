@@ -1,5 +1,5 @@
 import React from "react";
-import Editor from "../content/components/editor";
+import Editor from "./components/editor";
 
 const EditorContext = React.createContext();
 
@@ -42,8 +42,6 @@ class EditorProvider extends React.Component {
                     <Editor
                         editor={this.state.editor}
                         handleClickEditorClose={this.handleClickEditorClose}
-                        add={content => this.add(content)}
-                        edit={(id, content) => this.edit(id, content)}
                     />
                 )}
 
