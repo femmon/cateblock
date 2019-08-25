@@ -141,21 +141,22 @@ class ContentProvider extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
         if (prevProps.status === this.props.status) return;
 
-        if (this.state.posts.length === 0) return this.view();
+        if (this.state.posts.length !== 0) {
+            let newPosts = this.state.posts.map(post => post.Content).reverse();
 
-        let newPosts = this.state.posts.map(post => post.Content).reverse();
-
-        this.createEntries(newPosts).then(id => {
+            let id = await this.createEntries(newPosts)
             let posts = JSON.parse(JSON.stringify(this.state.posts));
             posts.forEach((post, index) => {
                 post.EntryID = Number(id) + this.state.posts.length - index - 1;
             });
 
-            this.setState({posts}, this.view);
-        }).catch(err => {throw err;});
+            await new Promise(resolve => this.setState({posts}, resolve));
+        }
+
+        this.view();
     }
 
     render() {
