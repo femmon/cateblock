@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "../../../../../../components/button";
 import FloatBox from "../../../../../../components/float-box";
-import PostText from "../post-text";
+import PostText from "../../../post-text";
+import {ContentConnect} from "../../../content-context";
 
 class Editor extends React.Component {
     constructor(props) {
@@ -22,7 +23,8 @@ class Editor extends React.Component {
     }
     handleEdit(event) {
         event.preventDefault();
-        this.props.edit(this.state.content).then(() => this.props.handleClickEditorClose());
+        this.props.edit(this.props.editor[1], this.state.content)
+        .then(() => this.props.handleClickEditorClose());
     }
     render() {
         return (
@@ -46,4 +48,4 @@ class Editor extends React.Component {
     }
 }
 
-export default Editor;
+export default ContentConnect(Editor);

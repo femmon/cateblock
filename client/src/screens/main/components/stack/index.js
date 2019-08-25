@@ -1,6 +1,8 @@
 import React from "react";
 import Hamburger from "./components/hamburger";
 import PostText from "../post-text";
+import {ContentConnect} from "../content-context";
+import {EditorConnect} from "../editor-context";
 
 class Stack extends React.Component {
     constructor(props) {
@@ -38,7 +40,7 @@ class Stack extends React.Component {
                             isOpeningHistory={this.state.history === EntryID}
                             closeViewEdit={this.closeViewEdit}
                             handleClickEditorEdit={() => {
-                                this.props.handleClickEditorEdit(EntryID);
+                                this.props.handleClickEditorEdit(EntryID, Content);
                             }}
                             Edited={Edited}
                             viewEdit={() => this.viewEdit(EntryID)}
@@ -73,4 +75,4 @@ function toLocalePostTime(PostTime) {
     return new Date(PostTime).toLocaleString().replace(/:\d{2} /, " ");
 }
 
-export default Stack;
+export default EditorConnect(ContentConnect(Stack));

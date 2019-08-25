@@ -4,7 +4,11 @@ import Button from "../../components/button";
 import Cloud from "../../components/cloud";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
-import Content from "./components/content";
+import Stack from "./components/stack";
+import ViewButton from "./components/view-button";
+import SideButtons from "./components/side-buttons";
+import {ContentProvider} from "./components/content-context";
+import {EditorProvider} from "./components/editor-context";
 
 class Main extends React.Component {
     handleClick(path) {
@@ -46,7 +50,17 @@ class Main extends React.Component {
             </header>
 
             <main>
-                <Content status={this.props.status} />
+                <ContentProvider status={this.props.status}>
+                    <EditorProvider status={this.props.status}>
+                        <Stack />
+
+                        {this.props.status === "login" && (
+                            <ViewButton />
+                        )}
+
+                        <SideButtons />
+                    </EditorProvider>
+                </ContentProvider>
             </main>
 
             <Cloud />

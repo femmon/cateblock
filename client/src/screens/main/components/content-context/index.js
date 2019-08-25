@@ -1,25 +1,20 @@
 import React from "react";
-import Stack from "./components/stack";
-import Editor from "./components/editor";
-import ViewButton from "./components/view-button";
 
-class Content extends React.Component {
+const ContentContext = React.createContext();
+
+class ContentProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             posts: [],
-            counter: -1,
-            editor: [null, null, ""]
+            counter: -1
         }
         this.add = this.add.bind(this);
         this.edit = this.edit.bind(this);
         this.view = this.view.bind(this);
         this.postDelete = this.postDelete.bind(this);
-        this.handleClickEditor = this.handleClickEditor.bind(this);
-        this.handleClickEditorClose = this.handleClickEditorClose.bind(this);
-        this.handleClickEditorAdd = this.handleClickEditorAdd.bind(this);
-        this.handleClickEditorEdit = this.handleClickEditorEdit.bind(this);
     }
+
     add(content) {
         return new Promise((resolve, reject) => {
             if (this.props.status === "try") {
@@ -49,6 +44,7 @@ class Content extends React.Component {
             // then both setstate?
         });
     }
+
     createEntries(content) {
         return fetch("/entries", {
             method: "POST",
@@ -57,18 +53,18 @@ class Content extends React.Component {
         }).then(res => res.text());
     }
 
-    edit(content) {
+    edit(id, content) {
         return new Promise((resolve, reject) => {
             // Check to see if user has made any changes
             let editingPost = this.state.posts.find(post => {
-                return post.EntryID === this.state.editor[1]
+                return post.EntryID === id;
             });
             if (editingPost.Content === content) return resolve();
 
             // Overide the old one if the status is "try"
             if (this.props.status === "try") {
                 let posts = this.state.posts.map(post => {
-                    if (post.EntryID !== this.state.editor[1]) return post;
+                    if (post.EntryID !== id) return post;
 
                     return {
                         ...post,
@@ -83,11 +79,11 @@ class Content extends React.Component {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         content,
-                        entryID: this.state.editor[1]
+                        entryID: id
                     })
                 }).then(res => {
                     let posts = this.state.posts.map(post => {
-                        if (post.EntryID !== this.state.editor[1]) return post;
+                        if (post.EntryID !== id) return post;
 
                         return {
                             ...post,
@@ -101,6 +97,7 @@ class Content extends React.Component {
             }
         });
     }
+
     postDelete(id) {
         if (this.props.status === "login") {
             fetch("/entries", {
@@ -127,6 +124,7 @@ class Content extends React.Component {
             }
         }
     }
+
     view() {
         fetch(`/entries/${this.state.posts.length}`)
         .then(res => res.json())
@@ -136,24 +134,13 @@ class Content extends React.Component {
             });
         }).catch(err => {throw err;});
     }
-    handleClickEditor(mode = null, id = null, content = "") {
-        this.setState({editor: [mode, id, content]});
-    }
-    handleClickEditorClose() {
-        this.handleClickEditor();
-    }
-    handleClickEditorAdd() {
-        this.handleClickEditor("add");
-    }
-    handleClickEditorEdit(id) {
-        let post = this.state.posts.find(post => post.EntryID === id);
-        this.handleClickEditor("edit", id, post.Content);
-    }
+
     componentDidMount() {
         if (this.props.status === "login") {
             this.view();
         }
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.status === this.props.status) return;
 
@@ -170,41 +157,30 @@ class Content extends React.Component {
             this.setState({posts}, this.view);
         }).catch(err => {throw err;});
     }
+
     render() {
         return (
-            <>
-                <Stack
-                    posts={this.state.posts}
-                    postDelete={id => this.postDelete(id)}
-                    handleClickEditorEdit={id => this.handleClickEditorEdit(id)}
-                />
-
-                {this.state.editor[0] && (
-                    <Editor
-                        editor={this.state.editor}
-                        handleClickEditorClose={this.handleClickEditorClose}
-                        add={content => this.add(content)}
-                        edit={content => this.edit(content)}
-                    />
-                )}
-
-                {this.props.status === "login" && (
-                    <ViewButton view={() => this.view()} />
-                )}
-
-                <div>
-                    <button onClick={this.handleClickEditorAdd}>Add</button>
-                    <button onClick={() => {
-                        window.scrollTo({
-                            top: 0,
-                            left: 0,
-                            behavior: "smooth"
-                        });
-                    }}>Up</button>
-                </div>
-            </>
+            <ContentContext.Provider value={{
+                ...this.state,
+                add: this.add,
+                edit: this.edit,
+                view: this.view,
+                postDelete: this.postDelete
+            }}>
+                {this.props.children}
+            </ContentContext.Provider>
         );
     }
 }
 
-export default Content;
+function ContentConnect(Child) {
+    return function(props) {
+        return (
+            <ContentContext.Consumer>
+                {contentValueObject => <Child {...props} {...contentValueObject}/>}
+            </ContentContext.Consumer>
+        );
+    };
+}
+
+export {ContentProvider, ContentConnect};
