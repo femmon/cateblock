@@ -5,6 +5,7 @@ import Cloud from "../../components/cloud";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Content from "./components/content";
+import Stack from "./components/stack";
 import {ContentProvider} from "./components/content-context";
 import {EditorProvider} from "./components/editor-context";
 
@@ -50,6 +51,7 @@ class Main extends React.Component {
             <main>
                 <ContentProvider status={this.props.status}>
                     <EditorProvider status={this.props.status}>
+                        <Stack />
                         <Content status={this.props.status}/>
                     </EditorProvider>
                 </ContentProvider>

@@ -1,6 +1,8 @@
 import React from "react";
 import Hamburger from "./components/hamburger";
 import PostText from "../post-text";
+import {ContentConnect} from "../content-context";
+import {EditorConnect} from "../editor-context";
 
 class Stack extends React.Component {
     constructor(props) {
@@ -73,4 +75,4 @@ function toLocalePostTime(PostTime) {
     return new Date(PostTime).toLocaleString().replace(/:\d{2} /, " ");
 }
 
-export default Stack;
+export default EditorConnect(ContentConnect(Stack));

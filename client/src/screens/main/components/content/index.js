@@ -1,5 +1,4 @@
 import React from "react";
-import Stack from "./components/stack";
 import Editor from "./components/editor";
 import ViewButton from "./components/view-button";
 
@@ -172,12 +171,6 @@ class Content extends React.Component {
     render() {
         return (
             <>
-                <Stack
-                    posts={this.state.posts}
-                    postDelete={id => this.postDelete(id)}
-                    handleClickEditorEdit={(id, content) => this.handleClickEditorEdit(id, content)}
-                />
-
                 {this.state.editor[0] && (
                     <Editor
                         editor={this.state.editor}
