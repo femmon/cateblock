@@ -22,7 +22,7 @@ class EditorProvider extends React.Component {
         this.handleClickEditor();
     }
 
-    handleClickEditorAdd() {console.log("Here")
+    handleClickEditorAdd() {
         this.handleClickEditor("add");
     }
 
