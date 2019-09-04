@@ -15,6 +15,7 @@
 * express:
   * express-session:
     * connect-redis
+    * redis
   * helmet
 * mysql
 
