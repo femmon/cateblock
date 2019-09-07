@@ -1,6 +1,6 @@
 const common = require("./webpack.common.js");
 
-module.exports = Object.assign({
+module.exports = Object.assign(common, {
     mode: "development",
     devtool: "eval-source-map",
     devServer: {
@@ -11,4 +11,4 @@ module.exports = Object.assign({
         public: "http://localhost:8080",
         writeToDisk: true,
     }
-}, common);
+});
