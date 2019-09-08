@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const toGzipName = require("../utils/to-gzip-name");
+
 const router = express.Router();
 
 const distFolder = path.join(__dirname, "../client/dist");
@@ -16,8 +18,7 @@ router.get("/", function(req, res, next) {
 // and wouldn't display if I send .gz file without manually set Content-Type).
 router.get("*.*", function(req, res, next) {
     if (req.get("Accept-Encoding").indexOf("gzip") !== -1) {
-        let lastDot = req.url.lastIndexOf(".");
-        req.url = req.url.slice(0, lastDot) + ".gz" + req.url.slice(lastDot);
+        req.url = toGzipName(req.url);
         res.set("Content-Encoding", "gzip");
     }
     next();
@@ -26,12 +27,14 @@ router.get("*.*", function(req, res, next) {
 router.use(express.static(distFolder));
 
 router.get("*", (req, res) => {
+    req.url = "/index.html";
+
     if (req.get("Accept-Encoding").indexOf("gzip") !== -1) {
+        req.url = toGzipName(req.url);
         res.set("Content-Encoding", "gzip");
-        res.status(404).sendFile(distFolder + "/index.gz.html");
-    } else {
-        res.status(404).sendFile(distFolder + "/index.html");
     }
+
+    res.status(404).sendFile(distFolder + req.url);
 });
 
 module.exports = router;

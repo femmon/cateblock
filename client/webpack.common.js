@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const toGzipName = require("../utils/to-gzip-name");
 
 module.exports = {
     entry: "./src/index.js",
@@ -61,8 +62,7 @@ module.exports = {
         new CompressionPlugin({
             filename(info) {
                 // Change name to serve from Express more easily
-                let dotPos = info.path.lastIndexOf(".");
-                return info.path.slice(0, dotPos) + ".gz" + info.path.slice(dotPos);
+                return toGzipName(info.path);
             }
         })
     ]
