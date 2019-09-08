@@ -60,6 +60,11 @@ module.exports = {
             favicon: path.resolve(__dirname, "src/favicon.ico")
         }),
         new CompressionPlugin({
+            // Using the strongest gzip (level 9) by default, which is good for
+            // pre-compressing. As it provides the best compression as well as
+            // fastest decompression (reference:
+            // https://www.rootusers.com/gzip-vs-bzip2-vs-xz-performance-comparison/)
+            compressionOptions: {level: 9},
             filename(info) {
                 // Change name to serve from Express more easily
                 return toGzipName(info.path);
