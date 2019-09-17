@@ -9,6 +9,7 @@ const Container = styled.div`
      */
     top: ${props => `${Math.round(100 * 0.5 ** (props.yOffset / 100)) + 100}px`};
     /* Here start is 200 and end is 100 */
+    z-index: -1;
 `;
 
 class Cloud extends React.Component {
