@@ -39,6 +39,3 @@ This script assumes to be fed database credentials as environment variables befo
 Runs the app in the development mode. Open http://localhost:3000 to view it in the browser.
 
 ## Others
-
-### `ngrok http -host-header="localhost:8080" 8080`
-(As of Ngrok version 2.3.30.) Tunnel traffic from outside to port 8080. This can be used with `npm run local` for fast testing on mobile.

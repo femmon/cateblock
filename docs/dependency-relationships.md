@@ -54,4 +54,3 @@
 * Node.js (current version is 12.10.0)
 * Bash environment
 * Heroku-CLI (current version is 7.30.0)
-* (Optional) ngrok (current version is 2.3.34)
