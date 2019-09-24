@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import cloud from "./cloud.png";
 
-const Container = styled.div`
+const Img = styled.img`
     position: fixed;
     /*
      * Formula for top:
@@ -31,9 +31,7 @@ class Cloud extends React.Component {
         document.removeEventListener("scroll", this.handleScroll);
     }
     render() {
-        return (<Container yOffset={this.state.yOffset}>
-            <img src={cloud} alt=""></img>
-        </Container>);
+        return <Img src={cloud} alt="" yOffset={this.state.yOffset}></Img>;
     }
 }
 
