@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import cloud from "./cloud.png";
 
 const Container = styled.div`
     position: fixed;
@@ -31,7 +32,7 @@ class Cloud extends React.Component {
     }
     render() {
         return (<Container yOffset={this.state.yOffset}>
-            ☁️
+            <img src={cloud} alt=""></img>
         </Container>);
     }
 }
