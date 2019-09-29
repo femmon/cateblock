@@ -13,7 +13,7 @@ const Img = styled.img`
     z-index: -1;
 `;
 
-class Cloud extends React.Component {
+class MovingClouds extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,4 +35,4 @@ class Cloud extends React.Component {
     }
 }
 
-export default Cloud;
+export default MovingClouds;
