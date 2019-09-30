@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../components/logo";
 import Button from "../../components/button";
-import MovingClouds from "../../components/moving-clouds";
+import Background from "../../components/background";
 import AccessAccount from "./components/access-account";
 import AccountSetting from "./components/account-setting";
 import Stack from "./components/stack";
@@ -63,7 +63,7 @@ class Main extends React.Component {
                 </ContentProvider>
             </main>
 
-            <MovingClouds />
+            <Background />
         </>);
     }
 }

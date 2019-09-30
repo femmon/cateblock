@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "../../components/logo";
 import Button from "../../components/button";
-import MovingClouds from "../../components/moving-clouds";
+import Background from "../../components/background";
 import FormContainer from "../../components/form-container";
 
 let transitionTime = "1s";
@@ -83,7 +83,7 @@ function Home(props) {
             </MainContainer>
         )}
 
-        <MovingClouds />
+        <Background />
     </>);
 }
 
