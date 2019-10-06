@@ -51,6 +51,6 @@
 * Redis (current version is 4.0.14)
 
 ## Other Dependencies:
-* Node.js (current version is 12.11.0)
+* Node.js (current version is 12.11.1)
 * Bash environment
-* Heroku-CLI (current version is 7.30.1)
+* Heroku-CLI (current version is 7.33.1)
