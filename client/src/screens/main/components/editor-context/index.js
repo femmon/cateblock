@@ -33,8 +33,6 @@ class EditorProvider extends React.Component {
     render() {
         return (
             <EditorContext.Provider value={{
-                ...this.state,
-                handleClickEditorClose: this.handleClickEditorClose,
                 handleClickEditorAdd: this.handleClickEditorAdd,
                 handleClickEditorEdit: this.handleClickEditorEdit
             }}>
