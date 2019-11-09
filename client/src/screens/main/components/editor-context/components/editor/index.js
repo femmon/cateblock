@@ -30,7 +30,9 @@ class Editor extends React.Component {
         return (
             <FloatBox handleClose={this.props.handleClickEditorClose}>
                 <form>
-                    <label htmlFor="Text area">Text area</label>
+                    <label htmlFor="Text area" css={`
+                        ${props => props.theme.screenreaderOnly}
+                    `}>Text area</label>
                     <PostText
                         as="textarea"
                         name="Text area"
