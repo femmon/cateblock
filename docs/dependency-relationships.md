@@ -53,4 +53,4 @@
 ## Other Dependencies:
 * Node.js (current version is 12.13.0)
 * Bash environment
-* Heroku-CLI (current version is 7.33.3)
+* Heroku-CLI (current version is 7.35.0)
