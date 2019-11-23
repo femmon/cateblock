@@ -48,9 +48,9 @@
 
 ## Database:
 * MySQL (current version is 5.7)
-* Redis (current version is 4.0.14)
+* Redis (current version is 5.0.7)
 
 ## Other Dependencies:
-* Node.js (current version is 12.13.0)
+* Node.js (current version is 12.13.1)
 * Bash environment
 * Heroku-CLI (current version is 7.35.0)
