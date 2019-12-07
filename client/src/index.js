@@ -83,14 +83,16 @@ class App extends React.Component {
             default:
                 throw new Error("Not supported status");
         }
-        return (
-            // ThemeProvider can only have 1 child and return that one child.
-            // More on this: https://github.com/styled-components/styled-components/issues/1325
+        return (<React.StrictMode>
+            {/* 
+                ThemeProvider can only have 1 child and return that one child.
+                More on this: https://github.com/styled-components/styled-components/issues/1325
+            */}
             <ThemeProvider theme={theme}><>
                 <GlobalStyle />
                 {Screen}
             </></ThemeProvider>
-        );
+        </React.StrictMode>);
     }
 }
 
