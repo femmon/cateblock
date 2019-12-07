@@ -77,7 +77,7 @@ class App extends React.Component {
                         status: "logout",
                         username: null
                     })}
-                />; 
+                />;
                 break;
 
             default:
