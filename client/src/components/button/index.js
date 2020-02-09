@@ -8,7 +8,7 @@ const Button = styled.button`
      */
     border-radius: 9999px;
     color: white;
-    background: ${props => props.emphasis ? "orange" : "#3BBDFF"};
+    background: ${props => props.emphasis ? "orange" : "hsl(200.2, 100%, 61.6%)"};
     font-weight: bolder;
     padding: 10px 20px;
 `;

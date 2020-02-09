@@ -16,7 +16,7 @@ function StaticClouds(props) {
         width: 100vw;
         height: 100vh;
 
-        background-color: #c9e8f2;
+        background-color: hsl(194.6, 61.2%, 86.9%);
         // The image flickers in development build, relates to this
         // https://github.com/styled-components/styled-components/issues/1593
         background-image: url(${staticCloudsSrc});
